@@ -1,0 +1,11 @@
+package model;
+
+public enum ReportType {
+    BORROWED_BOOKS ,
+    OVERDUE_BOOKS ,
+    MEMBER_ACTIVITY ,
+    GENRE_POPULARITY ,
+    FINANCIAL_SUMMARY ,
+    INACTIVE_MEMBERS ,
+    TOP_BORROWERS;
+}
