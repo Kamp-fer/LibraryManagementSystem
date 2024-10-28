@@ -1,0 +1,8 @@
+memberId,name,address,phoneNumber,email,membershipStartDate,borrowLimit,membershipType,studentId,specialization,enrollmentDate,academicStanding
+10451234,Ahmed Khalid,123 Al Muntazah St,+974-1234-5678,ahmed.khalid@qu.edu.qa,2023-01-01,5,Student,22480136,Business,2022-01-01,Excellent
+13458762,Mohammed Ali,321 Al Corniche Rd,+974-5678-1234,mohammed.ali@qu.edu.qa,2023-03-22,5,Student,46136123,Computer Science,2022-03-22,Average
+19876543,Yusuf Hamid,987 Lusail St,+974-7890-1234,yusuf.hamid@qu.edu.qa,2023-08-10,5,Student,39000081,Chemistry,2022-08-10,Good
+12987653,Aliya Hadi,345 The Pearl,+974-3456-7890,aliya.hadi@qu.edu.qa,2023-06-30,5,Student,24359557,Engineering,2022-06-30,Average
+17895467,Layla Rahman,789 Al Gharrafa,+974-7890-5678,layla.rahman@qu.edu.qa,2023-01-17,5,Student,80005291,Computer Science,2022-01-17,Average
+13098765,Ismail Qasim,567 Al Waab St,+974-3456-2345,ismail.qasim@qu.edu.qa,2023-05-12,5,Student,56739123,Physics,2022-05-12,Excellent
+14561234,Samira Naji,789 West Bay,+974-3456-1234,samira.naji@qu.edu.qa,2023-02-14,5,Student,38917234,Mathematics,2022-02-14,Good
