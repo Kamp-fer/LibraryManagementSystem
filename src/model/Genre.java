@@ -1,5 +1,5 @@
-package model;
+package module;
 
 public enum Genre {
-    FICTION, NON_FICTION, TEXTBOOK;
+	FICTION, NON_FICTION, TEXTBOOK;
 }

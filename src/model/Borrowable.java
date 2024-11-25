@@ -1,6 +1,6 @@
-package model;
+package module;
 
 public interface Borrowable {
-    public void borrowItem();
-    public void returnItem();
+	void borrowItem();
+	void returnItem();
 }

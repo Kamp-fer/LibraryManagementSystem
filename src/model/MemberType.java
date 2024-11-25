@@ -1,5 +1,6 @@
 package model;
 
 public enum MemberType {
-    STUDENT, FACULTY, EXTERNAL;
+	STUDENT, FACULTY, EXTERNAL
+
 }
