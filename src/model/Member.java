@@ -107,7 +107,7 @@ public abstract class Member {
 	public List<Invoice> viewTransactionHistory(){
 		ArrayList<Invoice> invoices = new ArrayList<>();
 		 for (BorrowTransaction transaction : borrowTransactions) {
-			 Invoice invoice = new Invoice(transaction.getBorrowId(),this, List.of(transaction.getItem()), transaction.getBorrowDate();
+			 Invoice invoice = new Invoice(transaction.getBorrowId(),this, List.of(transaction.getItem()), transaction.getBorrowDate());
 			 invoices.add(invoice);
 			 
 		 }
@@ -138,7 +138,8 @@ public abstract class Member {
 				return removedTransaction;
 			}
 		}
-	}
+        return null;
+    }
 
 	public abstract void displayMemberDetails();
 

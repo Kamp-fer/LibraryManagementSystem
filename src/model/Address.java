@@ -1,4 +1,4 @@
-package module;
+package model;
 
 public class Address {
 	private String street;

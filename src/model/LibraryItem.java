@@ -1,4 +1,4 @@
-package module;
+package model;
 
 public abstract class LibraryItem implements Borrowable {
 	protected int itemId;
