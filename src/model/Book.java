@@ -1,4 +1,4 @@
-package module;
+package model;
 
 public class Book extends LibraryItem {
 	private String isbn;
