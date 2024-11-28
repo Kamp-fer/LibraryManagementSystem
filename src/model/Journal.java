@@ -5,11 +5,11 @@ public class Journal extends LibraryItem {
 	private int issueNumber;
 	private String publisher;
 
-	public Journal(int itemId, String title, Author author, boolean isAvailable, double latePenality, int issueNumber,
+	public Journal(int itemId, String title, Author author, boolean isAvailable, double latePenalty, int issueNumber,
 			String publisher) {
-		super(itemId, title, author, isAvailable, latePenality);
-		this.issueNumber = issueNumber;
-		this.publisher = publisher;
+		super(itemId, title, author, isAvailable, latePenalty);
+		setIssueNumber(issueNumber);
+		setPublisher(publisher);
 	}
 
 	public int getIssueNumber() {
@@ -41,13 +41,13 @@ public class Journal extends LibraryItem {
 
 	@Override
 	public void displayDetails() {
-		System.out.println("Journal Deatails:");
-		System.out.println("Item ID: " + itemId);
-		System.out.println("Title: " + title);
+		System.out.println("Journal Details:");
+		System.out.println("Item ID: " + getItemId());
+		System.out.println("Title: " + getTitle());
 		System.out.println("Author: " + author.getName());
 		System.out.println("Availability: " + (isAvailable ? "Yes" : "No"));
-		System.out.println("Late Penality: " + latePenality);
-		System.out.println("Issue Number: " + issueNumber);
-		System.out.println("Publisher: " + publisher);
+		System.out.println("Late Penalty: " + getLatePenalty());
+		System.out.println("Issue Number: " + getIssueNumber());
+		System.out.println("Publisher: " + getPublisher());
 	}
 }

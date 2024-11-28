@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Member {
-	private int memberid;
+	private int memberId;
 	private String name;
 	private Address address;
 	private String phoneNumber;
@@ -18,24 +18,24 @@ public abstract class Member {
 
 	}
 
-	public Member(int memberid, String name, Address address, String phoneNumber, String email,
-			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTranscations, int borrowLimit) {
-		setMemberid(memberid);
+	public Member(int memberId, String name, Address address, String phoneNumber, String email,
+			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit) {
+		setMemberId(memberId);
 		setName(name);
 		setAddress(address);
 		setPhoneNumber(phoneNumber);
 		setEmail(email);
 		setMembershipStartDate(membershipStartDate);
-		setBorrowTranscations(borrowTransactions);
+		setBorrowTransactions(borrowTransactions);
 		setBorrowLimit(borrowLimit);
 	}
 
-	public int getMemberid() {
-		return memberid;
+	public int getMemberId() {
+		return memberId;
 	}
 
-	public void setMemberid(int memberid) {
-		this.memberid = memberid;
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getName() {
@@ -78,12 +78,12 @@ public abstract class Member {
 		this.membershipStartDate = membershipStartDate;
 	}
 
-	public ArrayList<BorrowTransaction> getBorrowTranscations() {
+	public ArrayList<BorrowTransaction> getBorrowTransactions() {
 		return borrowTransactions;
 	}
 
-	public void setBorrowTranscations(ArrayList<BorrowTransaction> borrowTranscations) {
-		this.borrowTransactions = borrowTranscations;
+	public void setBorrowTransactions(ArrayList<BorrowTransaction> borrowTransactions) {
+		this.borrowTransactions = borrowTransactions;
 	}
 
 	public int getBorrowLimit() {
@@ -107,9 +107,8 @@ public abstract class Member {
 	public List<Invoice> viewTransactionHistory(){
 		ArrayList<Invoice> invoices = new ArrayList<>();
 		 for (BorrowTransaction transaction : borrowTransactions) {
-			 Invoice invoice = new Invoice(transaction.getBorrowId(),this, List.of(transaction.getItem()), transaction.getBorrowDate());
+			 Invoice invoice = new Invoice(Integer.toString(transaction.getBorrowId()),this, (ArrayList<LibraryItem>) List.of(transaction.getItem()), transaction.getDueDate());
 			 invoices.add(invoice);
-			 
 		 }
 		 return invoices;
 	}

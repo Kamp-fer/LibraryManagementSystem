@@ -19,10 +19,10 @@ public class Student extends Member {
 		setReservedBooks(reservedBooks);
 	}
 
-	public Student(int memberid, String name, Address address, String phoneNumber, String email,
-			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTranscations, int borrowLimit,
+	public Student(int memberId, String name, Address address, String phoneNumber, String email,
+			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit,
 			int studentId, String specialization, ArrayList<Book> reservedBooks) {
-		super(memberid, name, address, phoneNumber, email, membershipStartDate, borrowTranscations, borrowLimit);
+		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowTransactions, borrowLimit);
 		setStudentId(studentId);
 		setSpecialization(specialization);
 		setReservedBooks(reservedBooks);
@@ -49,7 +49,7 @@ public class Student extends Member {
 	}
 
 	public void setReservedBooks(List<Book> reservedBooks) {
-		this.reservedBooks = reservedBooks;
+		this.reservedBooks = new ArrayList<>(reservedBooks);
 	}
 
 	public void reserveBook(Book book) {
@@ -105,9 +105,9 @@ public class Student extends Member {
 		System.out.println("Membership Start Date: " + getMembershipStartDate());
 		System.out.println("Borrow Limit: " + getBorrowLimit());
 
-		if (getBorrowTranscations() != null) {
+		if (getBorrowTransactions() != null) {
 			System.out.println("Borrowed Items: ");
-			for (BorrowTransaction transaction : getBorrowTranscations()) {
+			for (BorrowTransaction transaction : getBorrowTransactions()) {
 				System.out.println("  Borrow ID: " + transaction.getBorrowId());
 				System.out.println("  Item ID: " + transaction.getItemId());
 				System.out.println("  Borrow Date: " + transaction.getBorrowDate());
@@ -121,6 +121,6 @@ public class Student extends Member {
 	@Override
 	public void generateMembershipReport() {
 		System.out
-				.println(" - Member: " + getName() + "," + " Total Borrowed Items: " + getBorrowTranscations().size());
+				.println(" - Member: " + getName() + "," + " Total Borrowed Items: " + getBorrowTransactions().size());
 	}
 }

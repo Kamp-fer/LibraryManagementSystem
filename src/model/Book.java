@@ -4,11 +4,11 @@ public class Book extends LibraryItem {
 	private String isbn;
 	private Genre genre;
 
-	public Book(int itemId, String title, Author author, boolean isAvailable, double latePenality, String isbn,
+	public Book(int itemId, String title, Author author, boolean isAvailable, double latePenalty, String isbn,
 			Genre genre) {
-		super(itemId, title, author, isAvailable, latePenality);
-		this.isbn = isbn;
-		this.genre = genre;
+		super(itemId, title, author, isAvailable, latePenalty);
+		setIsbn(isbn);
+		setGenre(genre);
 
 	}
 
@@ -30,14 +30,14 @@ public class Book extends LibraryItem {
 
 	@Override
 	public void displayDetails() {
-		System.out.println("Book Deatails:");
-		System.out.println("Item ID: " + itemId);
-		System.out.println("Title: " + title);
+		System.out.println("Book Details:");
+		System.out.println("Item ID: " + getItemId());
+		System.out.println("Title: " + getTitle());
 		System.out.println("Author: " + author.getName());
 		System.out.println("Availability: " + (isAvailable ? "Yes" : "No"));
-		System.out.println("Late Penality: " + latePenality);
-		System.out.println("isbn: " + isbn);
-		System.out.println("Genre: " + genre);
+		System.out.println("Late Penalty: " + getLatePenalty());
+		System.out.println("isbn: " + getIsbn());
+		System.out.println("Genre: " + getGenre());
 
 	}
 

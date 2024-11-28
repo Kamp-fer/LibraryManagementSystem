@@ -6,21 +6,21 @@ import java.util.List;
 
 public class Faculty extends Member {
 	private String facultyId;
-	private List<Journals> reservedJournals;
+	private List<Journal> reservedJournals;
 
 	public Faculty() {
 
 	}
 
-	public Faculty(String facultyId, List<Journals> reservedJournals) {
+	public Faculty(String facultyId, List<Journal> reservedJournals) {
 		setFacultyId(facultyId);
 		setReservedJournals(reservedJournals);
 	}
 
-	public Faculty(int memberid, String name, Address address, String phoneNumber, String email,
-			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTranscations, int borrowLimit,
-			String facultyId, List<Journals> reservedJournals) {
-		super(memberid, name, address, phoneNumber, email, membershipStartDate, borrowTranscations, borrowLimit);
+	public Faculty(int memberId, String name, Address address, String phoneNumber, String email,
+			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit,
+			String facultyId, List<Journal> reservedJournals) {
+		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowTransactions, borrowLimit);
 		setFacultyId(facultyId);
 		setReservedJournals(reservedJournals);
 	}
@@ -33,11 +33,11 @@ public class Faculty extends Member {
 		this.facultyId = facultyId;
 	}
 
-	public List<Journals> getReservedJournals() {
+	public List<Journal> getReservedJournals() {
 		return reservedJournals;
 	}
 
-	public void setReservedJournals(List<Journals> reservedJournals) {
+	public void setReservedJournals(List<Journal> reservedJournals) {
 		this.reservedJournals = reservedJournals;
 	}
 
@@ -80,9 +80,9 @@ public class Faculty extends Member {
 		System.out.println("Membership Start Date: " + getMembershipStartDate());
 		System.out.println("Borrow Limit: " + getBorrowLimit());
 
-		if (getBorrowTranscations() != null) {
+		if (getBorrowTransactions() != null) {
 			System.out.println("Borrowed Items: ");
-			for (BorrowTransaction transaction : getBorrowTranscations()) {
+			for (BorrowTransaction transaction : getBorrowTransactions()) {
 				System.out.println("  Borrow ID: " + transaction.getBorrowId());
 				System.out.println("  Item ID: " + transaction.getItemId());
 				System.out.println("  Borrow Date: " + transaction.getBorrowDate());
@@ -96,7 +96,7 @@ public class Faculty extends Member {
 	@Override
 	public void generateMembershipReport() {
 		System.out
-				.println(" - Member: " + getName() + "," + " Total Borrowed Items: " + getBorrowTranscations().size());
+				.println(" - Member: " + getName() + "," + " Total Borrowed Items: " + getBorrowTransactions().size());
 	}
 
 }

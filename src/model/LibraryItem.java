@@ -5,14 +5,14 @@ public abstract class LibraryItem implements Borrowable {
 	protected String title;
 	protected Author author;
 	protected boolean isAvailable;
-	protected double latePenality;
+	protected double latePenalty;
 
-	public LibraryItem(int itemId, String title, Author author, boolean isAvailable, double latePenality) {
+	public LibraryItem(int itemId, String title, Author author, boolean isAvailable, double latePenalty) {
 		this.itemId = itemId;
 		this.title = title;
 		this.author = author;
 		this.isAvailable = isAvailable;
-		this.latePenality = latePenality;
+		this.latePenalty = latePenalty;
 	}
 
 	public int getItemId() {
@@ -47,13 +47,13 @@ public abstract class LibraryItem implements Borrowable {
 		this.isAvailable = isAvailable;
 	}
 
-	public double getLatePenality() {
-		return latePenality;
+	public double getLatePenalty() {
+		return latePenalty;
 	}
 
-	public void setLatePenality(double latePenality) {
-		this.latePenality = latePenality;
+	public void setLatePenalty(double latePenalty) {
+		this.latePenalty = latePenalty;
 	}
 
-	abstract void displayDetails();
+	public abstract void displayDetails();
 }
