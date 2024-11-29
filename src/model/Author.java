@@ -6,9 +6,9 @@ public class Author {
 	private Address address;
 	public Author(String name, String email, Address address) {
 		super();
-		this.name = name;
-		this.email = email;
-		this.address = address;
+		setName(name);
+		setEmail(email);
+		setAddress(address);
 	}
 	public String getName() {
 		return name;
@@ -27,6 +27,11 @@ public class Author {
 	}
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return "name=" + getName() + ", email=" + getEmail() + ", address=" + getAddress();
 	}
 	
 	

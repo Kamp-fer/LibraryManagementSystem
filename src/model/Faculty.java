@@ -25,6 +25,12 @@ public class Faculty extends Member {
 		setReservedJournals(reservedJournals);
 	}
 
+	public Faculty(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, String facultyId) {
+		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowLimit);
+		setFacultyId(facultyId);
+		setReservedJournals(new ArrayList<>());
+	}
+
 	public String getFacultyId() {
 		return facultyId;
 	}
@@ -63,25 +69,25 @@ public class Faculty extends Member {
 	@Override
 	public void displayMemberDetails() {
 		System.out.println("Faculty ID: " + getFacultyId());
-		System.out.println("Faculty Name: " + getName());
+		System.out.print(", Faculty Name: " + getName());
 
 		if (getAddress() != null) {
-			System.out.println("Address: ");
+			System.out.println(", Address: ");
 			System.out.println("  Street: " + getAddress().getStreet());
 			System.out.println("  City: " + getAddress().getCity());
 			System.out.println("  State: " + getAddress().getState());
 			System.out.println("  Zip Code: " + getAddress().getZipCode());
 		} else {
-			System.out.println("Address is not available. ");
+			System.out.println(", Address is not available. ");
 		}
 
-		System.out.println("Phone Number: " + getPhoneNumber());
-		System.out.println("Email: " + getEmail());
-		System.out.println("Membership Start Date: " + getMembershipStartDate());
-		System.out.println("Borrow Limit: " + getBorrowLimit());
+		System.out.println(", Phone Number: " + getPhoneNumber());
+		System.out.println(", Email: " + getEmail());
+		System.out.println(", Membership Start Date: " + getMembershipStartDate());
+		System.out.println(", Borrow Limit: " + getBorrowLimit());
 
 		if (getBorrowTransactions() != null) {
-			System.out.println("Borrowed Items: ");
+			System.out.println(", Borrowed Items: ");
 			for (BorrowTransaction transaction : getBorrowTransactions()) {
 				System.out.println("  Borrow ID: " + transaction.getBorrowId());
 				System.out.println("  Item ID: " + transaction.getItemId());
@@ -89,7 +95,7 @@ public class Faculty extends Member {
 				System.out.println("  Due Date: " + transaction.getDueDate());
 			}
 		} else {
-			System.out.println("No borrowed items. ");
+			System.out.println(", No borrowed items. ");
 		}
 	}
 

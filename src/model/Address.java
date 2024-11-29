@@ -8,10 +8,10 @@ public class Address {
 
 	public Address(String street, String city, String state, String zipCode) {
 		super();
-		this.street = street;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
+		setStreet(street);
+		setCity(city);
+		setState(state);
+		setZipCode(zipCode);
 	}
 
 	public String getStreet() {
@@ -44,6 +44,11 @@ public class Address {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	@Override
+	public String toString() {
+		return "street=" + getStreet() + ", city=" + getCity() + ", state=" + getState() + ", zipCode=" + getZipCode() ;
 	}
 
 }

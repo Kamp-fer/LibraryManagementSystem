@@ -1,6 +1,0 @@
-memberId,name,address,phoneNumber,email,membershipStartDate,borrowLimit,membershipType,externalId,organization,subscriptionFee,membershipExpiryDate
-24561234,Omar Hussein,789 Al Waab St,+974-3456-7890,omar.hussein@gmail.com,2021-11-10,3,External,95346851,QNB,364.51,2022-11-10
-17895432,Hassan Saeed,456 Al Sadd St,+974-4567-8901,hassan.saeed@gmail.com,2022-07-25,3,External,38513212,Qatar Airways,365.48,2023-07-25
-20987651,Ibrahim Zahir,234 Education City,+974-5678-2345,ibrahim.zahir@gmail.com,2021-05-15,3,External,74144749,Qatar Airways,240.25,2022-05-15
-21098765,Noor Ahmed,678 Al Hilal St,+974-6789-4567,noor.ahmed@gmail.com,2022-12-01,3,External,94173812,Qatar Petroleum,146.50,2023-12-01
-19865421,Amina Ibrahim,654 Madinat Khalifa,+974-1234-5678,amina.ibrahim@gmail.com,2021-03-09,3,External,24559944,Qatar Airways,227.24,2022-03-09

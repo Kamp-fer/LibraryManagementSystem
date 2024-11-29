@@ -30,6 +30,17 @@ public abstract class Member {
 		setBorrowLimit(borrowLimit);
 	}
 
+	public Member(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit) {
+		setMemberId(memberId);
+		setName(name);
+		setAddress(address);
+		setPhoneNumber(phoneNumber);
+		setEmail(email);
+		setMembershipStartDate(membershipStartDate);
+		setBorrowTransactions(new ArrayList<>());
+		setBorrowLimit(borrowLimit);
+	}
+
 	public int getMemberId() {
 		return memberId;
 	}
@@ -97,7 +108,7 @@ public abstract class Member {
 	public boolean checkBorrowingLimit() {
 		int validBorrow = 0;
 		for (BorrowTransaction transaction : borrowTransactions) {
-			if (transaction.getDueDate().after(transaction.getBorrowDate())) {
+			if (transaction.getDueDate().isAfter(transaction.getBorrowDate())) {
 				validBorrow += 1;
 			}
 		}
@@ -119,7 +130,6 @@ public abstract class Member {
 		}
 
 		borrowTransactions.add(borrow);
-		System.out.println("The transaction has been added successfully");
 
 	}
 
@@ -139,6 +149,13 @@ public abstract class Member {
 		}
         return null;
     }
+
+	@Override
+	public String toString() {
+		return "Member Id=" + getMemberId() + ", Name=" + getName() + ", Address=" + getAddress() + ", Phone Number=" + getPhoneNumber()
+				+ ", Email=" + getEmail() + ", Membership Start Date=" + getMembershipStartDate() + ", Borrow Transactions="
+				+ getBorrowTransactions() + ", Borrow Limit=" + getBorrowLimit();
+	}
 
 	public abstract void displayMemberDetails();
 

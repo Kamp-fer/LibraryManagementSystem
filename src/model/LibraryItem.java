@@ -8,11 +8,11 @@ public abstract class LibraryItem implements Borrowable {
 	protected double latePenalty;
 
 	public LibraryItem(int itemId, String title, Author author, boolean isAvailable, double latePenalty) {
-		this.itemId = itemId;
-		this.title = title;
-		this.author = author;
-		this.isAvailable = isAvailable;
-		this.latePenalty = latePenalty;
+		setItemId(itemId);
+		setTitle(title);
+		setAuthor(author);
+		setAvailable(isAvailable);
+		setLatePenalty(latePenalty);
 	}
 
 	public int getItemId() {
@@ -49,6 +49,12 @@ public abstract class LibraryItem implements Borrowable {
 
 	public double getLatePenalty() {
 		return latePenalty;
+	}
+
+	@Override
+	public String toString() {
+		return "Item ID: " + getItemId() + ", Title: " + getTitle() + ", Author: " + author.getName() + ", Availability: "
+				+ (isAvailable ? "Yes" : "No") + ", Late Penalty: " + getLatePenalty();
 	}
 
 	public void setLatePenalty(double latePenalty) {

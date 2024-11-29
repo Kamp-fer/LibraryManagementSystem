@@ -2,6 +2,7 @@ package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class LibrarySystem {
@@ -34,7 +35,6 @@ public class LibrarySystem {
 
     public void addLibraryItem(LibraryItem item) {
         libraryItems.add(item);
-        System.out.println("Library Item added successfully" + "item.getItemId()");
     }
 
     public void viewAllLibraryItems() {
@@ -55,7 +55,7 @@ public class LibrarySystem {
         for (int i = 0; i < libraryItems.size(); i++) {
             if (libraryItems.get(i).getItemId() == item.getItemId()) {
                 libraryItems.set(i, item);
-                System.out.println("Library Item updated successfully" + "item.getItemId()");
+                System.out.println("Library Item updated successfully" + item.getItemId());
             } else {
                 System.out.println("Library Item not found");
             }
@@ -66,7 +66,7 @@ public class LibrarySystem {
         for (int i = 0; i < libraryItems.size(); i++) {
             if (libraryItems.get(i).getItemId() == itemId) {
                 libraryItems.remove(i);
-                System.out.println("Library Item deleted successfully" + "itemId");
+                System.out.println("Library Item deleted successfully" + itemId);
                 return;
             }
         }
@@ -87,7 +87,7 @@ public class LibrarySystem {
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getMemberId() == member.getMemberId()) {
                 members.set(i, member);
-                System.out.println("Member updated successfully" + "member.getMemberId()");
+                System.out.println("Member updated successfully" + member.getMemberId());
                 return;
             }
         }
@@ -98,7 +98,7 @@ public class LibrarySystem {
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getMemberId() == member.getMemberId()) {
                 members.remove(i);
-                System.out.println("Member deleted successfully" + "member.getMemberId()");
+                System.out.println("Member deleted successfully" + member.getMemberId());
                 return;
             }
         }
@@ -113,15 +113,15 @@ public class LibrarySystem {
                         if (member.getMemberId() == memberId) {
                             if (member.checkBorrowingLimit()) {
                                 Scanner scanner = new Scanner(System.in);
-                                Date borrowDate = new Date();
+                                LocalDate borrowDate;
                                 System.out.println("Enter borrow date (yyyy/MM/dd): ");
-                                String date = scanner.nextLine();
                                 try {
-                                    borrowDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
+                                    borrowDate = LocalDate.parse(scanner.next());
+                                } catch (Exception e) {
+                                    System.err.println("Invalid date format. ");
+                                    break;
                                 }
-                                Date dueDate = new Date(borrowDate.getTime() + 21 * 24 * 60 * 60 * 1000);
+                                LocalDate dueDate = borrowDate.plusDays(21);
                                 BorrowTransaction borrowTransaction = new BorrowTransaction(BorrowTransaction.generateBorrowId(), memberId, itemId, borrowDate, dueDate);
                                 member.addBorrowTransaction(borrowTransaction);
                                 libraryItem.borrowItem();
@@ -142,18 +142,16 @@ public class LibrarySystem {
     }
 
 
-    public Invoice returnLibraryItem(int memberId, int itemId) {
-        for (LibraryItem libraryItem : libraryItems) {
-            if (libraryItem.getItemId() == itemId) {
-                for (Member member : members) {
-                    if (member.getMemberId() == memberId) {
-                        BorrowTransaction borrowTransaction = member.removeBorrowItem(libraryItem);
-                        if (borrowTransaction != null) {
+    public Invoice returnLibraryItem(int borrowId) {
+        for (Member member : members) {
+            for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
+                if (borrowTransaction.getBorrowId() == borrowId) {
+                    for (LibraryItem libraryItem : libraryItems) {
+                        if (libraryItem.getItemId() == borrowTransaction.getItemId()) {
                             libraryItem.returnItem();
-                            System.out.println("Item returned successfully");
-                            return new Invoice(Integer.toString(borrowTransaction.getBorrowId()), member, (ArrayList<LibraryItem>) List.of(libraryItem), borrowTransaction.getDueDate());
-                        } else {
-                            System.out.println("Item not borrowed by member");
+                            member.removeBorrowItem(libraryItem);
+                            Invoice invoice = new Invoice(Integer.toString(borrowTransaction.getBorrowId()), member, List.of(libraryItem), borrowTransaction.getDueDate());
+                            return invoice;
                         }
                     }
                 }
@@ -176,7 +174,7 @@ public class LibrarySystem {
             case OVERDUE_BOOKS -> {
                 for (Member member : members) {
                     for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
-                        if (borrowTransaction.getDueDate().before(new Date())) {
+                        if (borrowTransaction.getDueDate().isBefore(LocalDate.now())) {
                             for (LibraryItem libraryItem : libraryItems) {
                                 if (libraryItem.getItemId() == borrowTransaction.getItemId()) {
                                     libraryItem.displayDetails();

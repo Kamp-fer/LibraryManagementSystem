@@ -37,6 +37,15 @@ public class ExternalMember extends Member {
 		setNotificationPreferences(notificationPreferences);
 	}
 
+	public ExternalMember(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, String externalId, String organization, double subscriptionFee, LocalDate membershipExpiryDate) {
+		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowLimit);
+		setExternalId(externalId);
+		setOrganization(organization);
+		setSubscriptionFee(subscriptionFee);
+		setMembershipExpiryDate(membershipExpiryDate);
+		setNotificationPreferences(new ArrayList<>());
+	}
+
 	public String getExternalId() {
 		return externalId;
 	}
@@ -117,45 +126,45 @@ public class ExternalMember extends Member {
 	@Override
 	public void displayMemberDetails() {
 		System.out.println("Member ID: " + getExternalId());
-		System.out.println("Member Name: " + getName());
-		System.out.println("Organization: " + getOrganization());
+		System.out.print(", Member Name: " + getName());
+		System.out.print(", Organization: " + getOrganization());
 
 		if (getAddress() != null) {
-			System.out.println("Address: ");
-			System.out.println("  Street: " + getAddress().getStreet());
-			System.out.println("  City: " + getAddress().getCity());
-			System.out.println("  State: " + getAddress().getState());
-			System.out.println("  Zip Code: " + getAddress().getZipCode());
+			System.out.print(", Address: ");
+			System.out.print("  Street: " + getAddress().getStreet());
+			System.out.print("  City: " + getAddress().getCity());
+			System.out.print("  State: " + getAddress().getState());
+			System.out.print("  Zip Code: " + getAddress().getZipCode());
 		} else {
-			System.out.println("Address is not available. ");
+			System.out.print("Address is not available. ");
 		}
 
-		System.out.println("Phone Number: " + getPhoneNumber());
-		System.out.println("Email: " + getEmail());
-		System.out.println("Subscription Fee: " + getSubscriptionFee());
-		System.out.println("Membership Start Date: " + getMembershipStartDate());
-		System.out.println("Membership Expiry Date: " + getMembershipExpiryDate());
-		System.out.println("Borrow Limit: " + getBorrowLimit());
+		System.out.print(", Phone Number: " + getPhoneNumber());
+		System.out.print(", Email: " + getEmail());
+		System.out.print(", Subscription Fee: " + getSubscriptionFee());
+		System.out.print(", Membership Start Date: " + getMembershipStartDate());
+		System.out.print(", Membership Expiry Date: " + getMembershipExpiryDate());
+		System.out.print(", Borrow Limit: " + getBorrowLimit());
 
 		if (getNotificationPreferences() != null) {
-			System.out.println("Notification Preferences: ");
+			System.out.print(", Notification Preferences: ");
 			for (String preference : getNotificationPreferences()) {
-				System.out.println(preference);
+				System.out.print(preference);
 			}
 		} else {
-			System.out.println("No notification preference. ");
+			System.out.print(", No notification preference. ");
 		}
 
 		if (getBorrowTransactions() != null) {
-			System.out.println("Borrowed Items: ");
+			System.out.print(", Borrowed Items: ");
 			for (BorrowTransaction transaction : getBorrowTransactions()) {
-				System.out.println("  Borrow ID: " + transaction.getBorrowId());
-				System.out.println("  Item ID: " + transaction.getItemId());
-				System.out.println("  Borrow Date: " + transaction.getBorrowDate());
-				System.out.println("  Due Date: " + transaction.getDueDate());
+				System.out.print("  Borrow ID: " + transaction.getBorrowId());
+				System.out.print("  Item ID: " + transaction.getItemId());
+				System.out.print("  Borrow Date: " + transaction.getBorrowDate());
+				System.out.print("  Due Date: " + transaction.getDueDate());
 			}
 		} else {
-			System.out.println("No borrowed items. ");
+			System.out.print(", No borrowed items. ");
 		}
 
 	}

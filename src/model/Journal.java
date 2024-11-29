@@ -41,13 +41,6 @@ public class Journal extends LibraryItem {
 
 	@Override
 	public void displayDetails() {
-		System.out.println("Journal Details:");
-		System.out.println("Item ID: " + getItemId());
-		System.out.println("Title: " + getTitle());
-		System.out.println("Author: " + author.getName());
-		System.out.println("Availability: " + (isAvailable ? "Yes" : "No"));
-		System.out.println("Late Penalty: " + getLatePenalty());
-		System.out.println("Issue Number: " + getIssueNumber());
-		System.out.println("Publisher: " + getPublisher());
+		System.out.println(super.toString() + ", " + "Issue Number: " + getIssueNumber() + ", " + "Publisher: " + getPublisher());
 	}
 }

@@ -1,25 +1,21 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class BorrowTransaction {
 	private int borrowId;
 	private int memberId;
 	private int itemId;
-	private Date borrowDate;
-	private Date dueDate;
+	private LocalDate borrowDate;
+	private LocalDate dueDate;
 
 	public BorrowTransaction() {
 
 	}
 
-	public BorrowTransaction(int borrowId, int memberId, int itemId, Date borrowDate, Date dueDate) {
+	public BorrowTransaction(int borrowId, int memberId, int itemId, LocalDate borrowDate, LocalDate dueDate) {
 		setBorrowId(borrowId);
 		setMemberId(memberId);
 		setItemId(itemId);
@@ -51,26 +47,33 @@ public class BorrowTransaction {
 		this.itemId = itemId;
 	}
 
-	public Date getBorrowDate() {
+	public LocalDate getBorrowDate() {
 		return borrowDate;
 	}
 
-	public void setBorrowDate(Date borrowDate) {
+	public void setBorrowDate(LocalDate borrowDate) {
 		this.borrowDate = borrowDate;
 	}
 
-	public Date getDueDate() {
+	public LocalDate getDueDate() {
 		return dueDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Borrow ID: " + getBorrowId() + ", Member ID: " + getMemberId() + ", Item ID: " + getItemId() + ", Borrow Date: " + getBorrowDate() + ", Due Date: " + getDueDate();
 	}
 
 	public void recordBorrow() {
 		try {
-			PrintWriter writer = new PrintWriter("borrowTransactions.csv");
-			writer.println(borrowId + "," + memberId + "," + itemId + "," + borrowDate + "," + dueDate);
+			PrintWriter writer = new PrintWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv");
+			BufferedWriter bufferedWriter = new BufferedWriter(writer);
+			PrintWriter out = new PrintWriter(bufferedWriter);
+			out.println(borrowId + "," + memberId + "," + itemId + "," + borrowDate + "," + dueDate);
 			writer.close();
 			System.out.println("Borrow transaction recorded successfully.");
 
@@ -82,7 +85,7 @@ public class BorrowTransaction {
 	public void recordReturn() {
 		try {
 			ArrayList<String> lines = new ArrayList<>();
-			try (BufferedReader reader = new BufferedReader(new FileReader("borrowTransactions.csv"))) {
+			try (BufferedReader reader = new BufferedReader(new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv"))) {
 				String line;
 				while ((line = reader.readLine()) != null) {
 					lines.add(line);
@@ -108,8 +111,8 @@ public class BorrowTransaction {
 				}
 			}
 
-			if (found == true) {
-				try (PrintWriter writer = new PrintWriter(new FileWriter("borrowTransactions.csv"))) {
+			if (found) {
+				try (PrintWriter writer = new PrintWriter(new FileWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv"))) {
 					for (String line : updatedLines) {
 						writer.println(line);
 					}
@@ -128,7 +131,7 @@ public class BorrowTransaction {
 		try{
 			String data;
 			String line;
-			BufferedReader reader = new BufferedReader(new FileReader("borrowTransactions.csv"));
+			BufferedReader reader = new BufferedReader(new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv"));
 			while ((line=reader.readLine()) != null) {
 				data = line;
 

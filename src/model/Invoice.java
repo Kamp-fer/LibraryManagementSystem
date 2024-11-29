@@ -1,19 +1,20 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 public class Invoice {
     private String invoiceId;
     private Member member;
-    private ArrayList<LibraryItem> item=new ArrayList<LibraryItem>();
-    private Date transactionDate;
+    private List<LibraryItem> item;
+    private LocalDate transactionDate;
 
-    public Invoice(String invoiceId, Member member, ArrayList<LibraryItem> item, Date transactionDate) {
-        this.invoiceId = invoiceId;
-        this.member = member;
-        this.item = item;
-        this.transactionDate = transactionDate;
+    public Invoice(String invoiceId, Member member, List<LibraryItem> item, LocalDate transactionDate) {
+            setInvoiceId(invoiceId);
+            setMember(member);
+            setItem(item);
+            setTransactionDate(transactionDate);
     }
 
     public String getInvoiceId() {
@@ -32,19 +33,19 @@ public class Invoice {
         this.member = member;
     }
 
-    public void setItem(ArrayList<LibraryItem> item) {
+    public void setItem(List<LibraryItem> item) {
         this.item = item;
     }
 
-    public Date getTransactionDate() {
+    public LocalDate getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
     }
 
-    public ArrayList<LibraryItem> getItem() {
+    public List<LibraryItem> getItem() {
         return item;
     }
 
@@ -58,11 +59,11 @@ public class Invoice {
 
     public void generateInvoice(){
         System.out.println("Invoice ID: "+invoiceId);
-        System.out.println("Member: "+member);
-        System.out.println("Transaction Date: "+transactionDate);
-        System.out.println("Items: ");
+        System.out.println(", Member: "+member);
+        System.out.println(", Transaction Date: "+transactionDate);
+        System.out.println(", Items: ");
         for (LibraryItem libraryItem : item) {
-            System.out.println(libraryItem);
+            libraryItem.displayDetails();
         }
     }
 }
