@@ -81,7 +81,7 @@ public class Faculty extends Member {
 	}
 
 	public void reserveJournal(Journal journal) {
-		if (journal.isAvailable()) {
+		if (journal.getItemAvailability()) {
 			reservedJournals.add(journal);
 			System.out.println("The journal " + journal.getTitle() + " has been successfully reserved. ");
 		} else {

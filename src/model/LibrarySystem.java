@@ -1,9 +1,10 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
+
+
 
 public class LibrarySystem {
     private static ArrayList<LibraryItem> libraryItems = new ArrayList<LibraryItem>();
@@ -36,20 +37,6 @@ public class LibrarySystem {
     public void addLibraryItem(LibraryItem item) {
         libraryItems.add(item);
     }
-
-    public void viewAllLibraryItems() {
-
-    }
-
-    public void viewAvailableLibraryItems() {
-        for (LibraryItem libraryItem : libraryItems) {
-            if (libraryItem.isAvailable()) {
-                libraryItem.displayDetails();
-            }
-        }
-    }
-
-
 
     public void updateLibraryItem(LibraryItem item) {
         for (int i = 0; i < libraryItems.size(); i++) {
@@ -108,7 +95,7 @@ public class LibrarySystem {
     public void borrowLibraryItem(int memberId, int itemId) {
         for (LibraryItem libraryItem : libraryItems) {
             if (libraryItem.getItemId() == itemId) {
-                if (libraryItem.isAvailable()) {
+                if (libraryItem.getItemAvailability()) {
                     for (Member member : members) {
                         if (member.getMemberId() == memberId) {
                             if (member.checkBorrowingLimit()) {
@@ -133,8 +120,12 @@ public class LibrarySystem {
                                 return;
                             }
                         }
+                        else{
+                            System.out.println("Member not found");
+                            return;
+                        }
                     }
-                } else {
+                }else {
                     System.out.println("Item not available");
                     return;
                 }
@@ -153,6 +144,7 @@ public class LibrarySystem {
                             borrowTransaction.recordReturn();
                             member.removeBorrowItem(libraryItem);
                             Invoice invoice = new Invoice(Integer.toString(borrowTransaction.getBorrowId()), member, List.of(libraryItem), borrowTransaction.getDueDate());
+                            System.out.println("Item returned successfully");
                             return invoice;
                         }
                     }
@@ -167,7 +159,7 @@ public class LibrarySystem {
             case BORROWED_BOOKS -> {
                 for (LibraryItem libraryItem : libraryItems) {
                     if (libraryItem instanceof Book) {
-                        if (!libraryItem.isAvailable()) {
+                        if (!libraryItem.getItemAvailability()) {
                             libraryItem.displayDetails();
                         }
                     }
@@ -176,7 +168,7 @@ public class LibrarySystem {
             case OVERDUE_BOOKS -> {
                 for (Member member : members) {
                     for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
-                        if (borrowTransaction.getDueDate().isBefore(LocalDate.now())) {
+                        if (borrowTransaction.getDueDate().isBefore(LocalDate.now()) && !borrowTransaction.getItem().getItemAvailability()) {
                             for (LibraryItem libraryItem : libraryItems) {
                                 if (libraryItem.getItemId() == borrowTransaction.getItemId()) {
                                     libraryItem.displayDetails();
@@ -218,7 +210,8 @@ public class LibrarySystem {
                     for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
                         for (LibraryItem libraryItem : libraryItems) {
                             if (libraryItem.getItemId() == borrowTransaction.getItemId()) {
-                                totalRevenue += libraryItem.getLatePenalty();
+                                int overDueDays = (int)Duration.between(borrowTransaction.getDueDate().atStartOfDay(), LocalDate.now().atStartOfDay()).toDays();
+                                totalRevenue += libraryItem.getLatePenalty()*overDueDays;
                             }
                         }
                     }

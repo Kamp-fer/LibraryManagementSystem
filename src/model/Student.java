@@ -84,7 +84,7 @@ public class Student extends Member {
 	}
 
 	public void reserveBook(Book book) {
-		if (book.isAvailable()) {
+		if (book.getItemAvailability()) {
 			reservedBooks.add(book);
 			System.out.println("The book " + book.getTitle() + " has been successfully reserved. ");
 		} else {

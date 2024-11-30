@@ -34,18 +34,18 @@ public class Book extends LibraryItem {
 				"Item ID: "+ getItemId()+ ", " +
 				"Title: " + getTitle()+ ", "+
 				"Author: " + getAuthor().getName()+ ", "+
-				"Available: "+ isAvailable());
+				"Available: "+ getItemAvailability());
 
 	}
 
 	@Override
 	public void borrowItem() {
-		isAvailable = false;
+		setItemAvailability( false);
 	}
 
 	@Override
 	public void returnItem() {
-		isAvailable = true;
+		setItemAvailability(true);
  
 	}
 }

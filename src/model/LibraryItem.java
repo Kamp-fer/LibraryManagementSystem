@@ -1,11 +1,11 @@
 package model;
 
 public abstract class LibraryItem implements Borrowable {
-	protected int itemId;
-	protected String title;
-	protected Author author;
-	protected boolean isAvailable;
-	protected double latePenalty;
+	private int itemId;
+	private String title;
+	private Author author;
+	private boolean isAvailable;
+	private double latePenalty;
 
 	public LibraryItem(int itemId, String title, Author author, boolean isAvailable, double latePenalty) {
 		setItemId(itemId);
@@ -39,8 +39,12 @@ public abstract class LibraryItem implements Borrowable {
 		this.author = author;
 	}
 
-	public boolean isAvailable() {
+	public boolean getItemAvailability() {
 		return isAvailable;
+	}
+
+	public void setItemAvailability(boolean isAvailable) {
+		this.isAvailable = isAvailable;
 	}
 
 	public void setAvailable(boolean isAvailable) {

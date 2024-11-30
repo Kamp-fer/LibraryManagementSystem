@@ -3,6 +3,7 @@ package model;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BorrowTransaction {
 	private int borrowId;
@@ -70,13 +71,11 @@ public class BorrowTransaction {
 
 	public void recordBorrow() {
 		try {
-			PrintWriter writer = new PrintWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv");
-			BufferedWriter bufferedWriter = new BufferedWriter(writer);
-			PrintWriter out = new PrintWriter(bufferedWriter);
-			out.println(borrowId + "," + memberId + "," + itemId + "," + borrowDate + "," + dueDate);
-			writer.close();
+			FileWriter fileWriter = new FileWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv", true);
+			PrintWriter printWriter = new PrintWriter(fileWriter);
+			printWriter.print(this.borrowId + "," + this.memberId + "," + this.itemId + "," + this.borrowDate + "," + this.dueDate);
+			printWriter.close();
 			System.out.println("Borrow transaction recorded successfully.");
-
 		} catch (IOException e) {
 			System.err.println("An error occurred while recording the borrow transaction: " + e.getMessage());
 		}
@@ -84,46 +83,50 @@ public class BorrowTransaction {
 
 	public void recordReturn() {
 		try {
+			// Read all lines from the file
 			ArrayList<String> lines = new ArrayList<>();
-			try (BufferedReader reader = new BufferedReader(new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv"))) {
+			try (BufferedReader reader = new BufferedReader(new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv"))) {
 				String line;
 				while ((line = reader.readLine()) != null) {
 					lines.add(line);
 				}
 			}
 
-			String header = lines.get(0);
+			// Extract the header and data separately
+			String header = lines.get(0); // First line is the header
 			ArrayList<String> updatedLines = new ArrayList<>();
-			updatedLines.add(header);
+			updatedLines.add(header); // Add the header back
 
 			boolean found = false;
 
-			for (int i = 1; i < lines.size(); i++) {
+			for (int i = 1; i < lines.size(); i++) { // Start from 1 to skip the header
 				String line = lines.get(i);
 				String[] columns = line.split(",");
 
-				int borrowId = Integer.parseInt(columns[0]);
+				// Assuming borrowId is the first column in the CSV
+				int fileBorrowId = Integer.parseInt(columns[0]);
 
-				if (borrowId == this.borrowId) {
-					found = true;
+				if (fileBorrowId == this.borrowId) {
+					found = true; // Skip this line (do not add it to updatedLines)
 				} else {
-					updatedLines.add(line);
+					updatedLines.add(line); // Keep other lines
 				}
 			}
 
+			// Overwrite the file with the updated content
 			if (found) {
-				try (PrintWriter writer = new PrintWriter(new FileWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv"))) {
+				try (PrintWriter writer = new PrintWriter(new FileWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv"))) {
 					for (String line : updatedLines) {
 						writer.println(line);
 					}
 				}
-				System.out.println("The return transaction has been recorded successfully.");
+				System.out.println("Return transaction recorded successfully.");
 			} else {
-				System.out.println("The transaction was not found in the file.");
+				System.out.println("Transaction not found in the file.");
 			}
 
-		} catch (IOException e) {
-			System.err.println("The return transaction could not be recorded due to an error. : " + e.getMessage());
+		} catch (IOException | NumberFormatException e) {
+			System.err.println("An error occurred while recording the return transaction: " + e.getMessage());
 		}
 	}
 
@@ -132,7 +135,7 @@ public class BorrowTransaction {
 			String data;
 			String line;
 			int lastBorrowId = 0;
-			BufferedReader reader = new BufferedReader(new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv"));
+			BufferedReader reader = new BufferedReader(new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv"));
 			while ((line=reader.readLine()) != null) {
 				data = line;
 				int borrowId=Integer.parseInt(data.split(",")[0]);

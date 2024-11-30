@@ -4,7 +4,6 @@ import model.*;
 
 import java.io.*;
 import java.time.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LibrarySystemApp {
@@ -45,7 +44,7 @@ public class LibrarySystemApp {
                 case 2:
                     System.out.println("--Available Library Items--");
                     for (LibraryItem libraryItem : LibrarySystem.getLibraryItems()) {
-                        if (libraryItem.isAvailable()) {
+                        if (libraryItem.getItemAvailability()) {
                             libraryItem.displayDetails();
                         }
                     }
@@ -772,7 +771,7 @@ public class LibrarySystemApp {
             FileReader bookReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\book.csv");
             Scanner scanner = new Scanner(bookReader);
             String data;
-            while (scanner.hasNextLine()){
+            while (scanner.hasNextLine()) {
                 data = scanner.nextLine();
                 String[] values = data.split(",");
                 int itemId = Integer.parseInt(values[0]);
@@ -951,7 +950,7 @@ public class LibrarySystemApp {
                     bookWriter.write(book.getItemId()+","+
                             book.getTitle()+","+
                             book.getAuthor().getName()+","+
-                            book.isAvailable()+","+
+                            book.getItemAvailability()+","+
                             book.getLatePenalty()+","+
                             book.getIsbn()+","+
                             book.getGenre()+"\n");
@@ -965,7 +964,7 @@ public class LibrarySystemApp {
                     journalWriter.write(journal.getItemId() +","+
                             journal.getTitle()+","+
                             journal.getAuthor().getName()+","+
-                            journal.isAvailable() +","+
+                            journal.getItemAvailability() +","+
                             journal.getLatePenalty()+","+
                             journal.getIssueNumber()+","+
                             journal.getPublisher()+"\n");
@@ -1038,7 +1037,7 @@ public class LibrarySystemApp {
                             borrowTransaction.getDueDate()+"\n");
                 }
             }
-
+            borrowWriter.close();
         }catch (Exception e){
             System.out.println("Error in saving data");
         }
