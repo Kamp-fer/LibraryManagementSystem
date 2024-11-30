@@ -1,9 +1,15 @@
 package model;
 
+
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @author Vael Fazelrahman
+ * Date: 24/11/2024
+ * @version 5.0
+ */
 public class Faculty extends Member {
 	private String facultyId;
 	private List<Journal> reservedJournals;
@@ -15,11 +21,30 @@ public class Faculty extends Member {
 
 	}
 
+	/**
+	 * @param facultyId
+	 * @param reservedJournals
+	 */
 	public Faculty(String facultyId, List<Journal> reservedJournals) {
 		setFacultyId(facultyId);
 		setReservedJournals(reservedJournals);
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowTransactions
+	 * @param borrowLimit
+	 * @param facultyId
+	 * @param reservedJournals
+	 * @param facultyType
+	 * @param researchArea
+	 * @param publicationCount
+	 */
 	public Faculty(int memberId, String name, Address address, String phoneNumber, String email,
 			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit,
 			String facultyId, List<Journal> reservedJournals,String facultyType, String researchArea, int publicationCount) {
@@ -31,6 +56,19 @@ public class Faculty extends Member {
 		setPublicationCount(publicationCount);
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowLimit
+	 * @param facultyId
+	 * @param facultyType
+	 * @param researchArea
+	 * @param publicationCount
+	 */
 	public Faculty(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, String facultyId, String facultyType, String researchArea, int publicationCount) {
 		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowLimit);
 		setFacultyId(facultyId);
@@ -80,6 +118,9 @@ public class Faculty extends Member {
 		this.facultyType = facultyType;
 	}
 
+	/**
+	 * @param journal
+	 */
 	public void reserveJournal(Journal journal) {
 		if (journal.getItemAvailability()) {
 			reservedJournals.add(journal);
@@ -99,12 +140,20 @@ public class Faculty extends Member {
 		}
 	}
 
+	/**
+	 * This method displays the details of the faculty
+	 * @return void
+	 */
 	@Override
 	public void displayMemberDetails() {
 		System.out.println("Member ID: " + getMemberId()+", Name: " + getName()+", Type: "+ this.getClass().getSimpleName());
 
 	}
 
+	/**
+	 * This method generates the membership report of the faculty
+	 * @return void
+	 */
 	@Override
 	public void generateMembershipReport() {
 		System.out

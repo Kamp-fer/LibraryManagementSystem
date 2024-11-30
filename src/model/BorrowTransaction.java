@@ -1,10 +1,16 @@
 package model;
 
+
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** @author Vael Fazelrahman
+ * Date: 24/11/2024
+ * @version 2.0
+ */
 public class BorrowTransaction {
 	private int borrowId;
 	private int memberId;
@@ -16,6 +22,13 @@ public class BorrowTransaction {
 
 	}
 
+	/**
+	 * @param borrowId
+	 * @param memberId
+	 * @param itemId
+	 * @param borrowDate
+	 * @param dueDate
+	 */
 	public BorrowTransaction(int borrowId, int memberId, int itemId, LocalDate borrowDate, LocalDate dueDate) {
 		setBorrowId(borrowId);
 		setMemberId(memberId);
@@ -64,11 +77,18 @@ public class BorrowTransaction {
 		this.dueDate = dueDate;
 	}
 
+	/**
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return "Borrow ID: " + getBorrowId() + ", Member ID: " + getMemberId() + ", Item ID: " + getItemId() + ", Borrow Date: " + getBorrowDate() + ", Due Date: " + getDueDate();
 	}
 
+	/**
+	 * This method records the borrow transaction in the borrowTransactions.csv file
+	 * @return void
+	 */
 	public void recordBorrow() {
 		try {
 			FileWriter fileWriter = new FileWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv", true);
@@ -81,6 +101,10 @@ public class BorrowTransaction {
 		}
 	}
 
+	/**
+	 * This method records the return transaction and removes the borrow entry from the borrowTransactions.csv file
+	 * @return void
+	 */
 	public void recordReturn() {
 		try {
 			// Read all lines from the file
@@ -130,6 +154,10 @@ public class BorrowTransaction {
 		}
 	}
 
+	/**
+	 * This method generates a borrow ID for the borrow transaction
+	 * @return int
+	 */
 	public static int generateBorrowId() {
 		try{
 			String data;
@@ -150,6 +178,10 @@ public class BorrowTransaction {
 		}
 	}
 
+	/**
+	 * This method returns the LibraryItem object associated with the borrow transaction
+	 * @return LibraryItem
+	 */
 	public LibraryItem getItem() {
 		for (LibraryItem item : LibrarySystem.getLibraryItems()) {
 			if (item.getItemId() == itemId) {

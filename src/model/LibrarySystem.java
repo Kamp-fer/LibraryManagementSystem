@@ -4,8 +4,13 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
 
-
-
+/** @author Abdullah Mohammad Shoeb
+ * @Date 2024-25-11
+ * @Course CMPS 251
+ * @Assignment Final Project
+ * @File_Name Invoice.java
+ * @version 2.0
+ */
 public class LibrarySystem {
     private static ArrayList<LibraryItem> libraryItems = new ArrayList<LibraryItem>();
     private static ArrayList<Member> members = new ArrayList<Member>();
@@ -13,6 +18,10 @@ public class LibrarySystem {
     public LibrarySystem() {
     }
 
+    /**
+     * @param libraryItems
+     * @param members
+     */
     public LibrarySystem(ArrayList<LibraryItem> libraryItems, ArrayList<Member> members) {
         setLibraryItems(libraryItems);
         setMembers(members);
@@ -34,21 +43,33 @@ public class LibrarySystem {
         LibrarySystem.members = members;
     }
 
+    /**
+     * this method is used to add the library item
+     * @param item
+     */
     public void addLibraryItem(LibraryItem item) {
         libraryItems.add(item);
     }
 
+    /**
+     * this method is used to update the library item
+     * @param item
+     */
     public void updateLibraryItem(LibraryItem item) {
         for (int i = 0; i < libraryItems.size(); i++) {
             if (libraryItems.get(i).getItemId() == item.getItemId()) {
                 libraryItems.set(i, item);
                 System.out.println("Library Item updated successfully" + item.getItemId());
-            } else {
-                System.out.println("Library Item not found");
+                return;
             }
         }
+        System.out.println("Library Item not found");
     }
 
+    /**
+     * this method is used to delete the library item
+     * @param itemId
+     */
     public void deleteLibraryItem(int itemId) {
         for (int i = 0; i < libraryItems.size(); i++) {
             if (libraryItems.get(i).getItemId() == itemId) {
@@ -60,6 +81,10 @@ public class LibrarySystem {
         System.out.println("Library Item not found");
     }
 
+    /**
+     * this method is used to add the member
+     * @param member
+     */
     public static void addMember(Member member) {
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getMemberId() == member.getMemberId()) {
@@ -68,30 +93,44 @@ public class LibrarySystem {
             }
         }
         members.add(member);
+
     }
 
+    /**
+     * this method is used to update the member
+     * @param member
+     */
     public void updateMember(Member member) {
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getMemberId() == member.getMemberId()) {
                 members.set(i, member);
-                System.out.println("Member updated successfully" + member.getMemberId());
+                System.out.println("Member updated successfully " + member.getMemberId()+"."+member.getName());
                 return;
             }
         }
         System.out.println("member not found");
     }
 
+    /**
+     * this method is used to delete the member
+     * @param member
+     */
     public void deleteMember(Member member) {
         for (int i = 0; i < members.size(); i++) {
             if (members.get(i).getMemberId() == member.getMemberId()) {
                 members.remove(i);
-                System.out.println("Member deleted successfully" + member.getMemberId());
+                System.out.println("Member deleted successfully " + member.getMemberId()+"."+member.getName());
                 return;
             }
         }
         System.out.println("Member not found");
     }
 
+    /**
+     * this method is used to borrow the library item and record the borrow transaction
+     * @param memberId
+     * @param itemId
+     */
     public void borrowLibraryItem(int memberId, int itemId) {
         for (LibraryItem libraryItem : libraryItems) {
             if (libraryItem.getItemId() == itemId) {
@@ -120,20 +159,18 @@ public class LibrarySystem {
                                 return;
                             }
                         }
-                        else{
-                            System.out.println("Member not found");
-                            return;
-                        }
                     }
-                }else {
-                    System.out.println("Item not available");
-                    return;
                 }
             }
         }
+        System.out.println("Member or Item not found.");
     }
 
-
+    /**
+     * this method is used to return the library item and record the return transaction
+     * @param borrowId
+     * @return Invoice
+     */
     public Invoice returnLibraryItem(int borrowId) {
         for (Member member : members) {
             for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
@@ -154,13 +191,24 @@ public class LibrarySystem {
         return null;
     }
 
+    /**
+     * this method is used to generate the report
+     * @param type
+     */
     public void generateReport(ReportType type) {
         switch (type) {
             case BORROWED_BOOKS -> {
                 for (LibraryItem libraryItem : libraryItems) {
                     if (libraryItem instanceof Book) {
                         if (!libraryItem.getItemAvailability()) {
-                            libraryItem.displayDetails();
+                            System.out.println("Borrowed Books");
+                            for (Member member : members) {
+                                for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
+                                    if (borrowTransaction.getItemId() == libraryItem.getItemId()) {
+                                        System.out.println("-Item: " + libraryItem.getTitle() + ", Author: " + libraryItem.getAuthor().getName() + ", Borrowed By: " + member.getName());
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -169,9 +217,10 @@ public class LibrarySystem {
                 for (Member member : members) {
                     for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
                         if (borrowTransaction.getDueDate().isBefore(LocalDate.now()) && !borrowTransaction.getItem().getItemAvailability()) {
+                            System.out.println("Overdue Books");
                             for (LibraryItem libraryItem : libraryItems) {
                                 if (libraryItem.getItemId() == borrowTransaction.getItemId()) {
-                                    libraryItem.displayDetails();
+                                    System.out.println("-Item: " + libraryItem.getTitle() + ", Author: " + libraryItem.getAuthor().getName() + ", Due Date: " + borrowTransaction.getDueDate());
                                 }
                             }
                         }
@@ -201,11 +250,12 @@ public class LibrarySystem {
                 }
 
                 for (int i = 0; i < genres.size(); i++) {
-                    System.out.println("Genre: " + genres.get(i) + ", Count: " + counts.get(i));
+                    System.out.println("Genre: " + genres.get(i) + ", Total Borrows: " + counts.get(i));
                 }
             }
             case FINANCIAL_SUMMARY -> {
                 double totalRevenue = 0;
+                System.out.println("Financial Summary");
                 for (Member member : members) {
                     for (BorrowTransaction borrowTransaction : member.getBorrowTransactions()) {
                         for (LibraryItem libraryItem : libraryItems) {
@@ -216,12 +266,12 @@ public class LibrarySystem {
                         }
                     }
                 }
-                System.out.println("Total Revenue: " + totalRevenue);
+                System.out.println("Total Late Fees Collected: " + totalRevenue);
             }
             case INACTIVE_MEMBERS -> {
                 for (Member member : members) {
                     if (member.getBorrowTransactions().isEmpty()) {
-                        member.displayMemberDetails();
+                        System.out.println("-Member: " + member.getName()+", ID: "+member.getMemberId()+", No borrowed Items.");
                     }
                 }
             }
@@ -239,9 +289,7 @@ public class LibrarySystem {
                 }
 
                 if (topBorrower != null) {
-                    System.out.println("Top Borrower:");
-                    topBorrower.displayMemberDetails();
-                    System.out.println("Total Borrowed Items: " + maxBorrowTransactions);
+                    System.out.println("Member:" + topBorrower.getName() + ", ID: " + topBorrower.getMemberId()+ ", Total Borrowed Items: " + maxBorrowTransactions);
                 } else {
                     System.out.println("No borrowing transactions found.");
                 }

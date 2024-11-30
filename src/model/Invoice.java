@@ -1,15 +1,33 @@
 package model;
 
+/**@author Abdullah Mohammad Shoeb
+* @Date 2024-25-11
+* @Course CMPS 251
+* @Assignment Final Project
+* @File_Name Invoice.java
+* @version 2.0
+*/
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for generating the invoice for the member
+ *
+ */
 public class Invoice {
     private String invoiceId;
     private Member member;
     private List<LibraryItem> item;
     private LocalDate transactionDate;
 
+    /**
+     * Default constructor
+     * @param invoiceId
+     * @param member
+     * @param item
+     * @param transactionDate
+     */
     public Invoice(String invoiceId, Member member, List<LibraryItem> item, LocalDate transactionDate) {
             setInvoiceId(invoiceId);
             setMember(member);
@@ -57,6 +75,10 @@ public class Invoice {
         this.item.remove(item);
     }
 
+    /**
+     * This method generates the invoice for the member
+     * @return void
+     */
     public void generateInvoice(){
         System.out.println("Invoice ID: "+invoiceId);
         System.out.println(", Member: "+member);

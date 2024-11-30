@@ -1,5 +1,10 @@
 package model;
 
+
+/** @author Vael Fazelrahman
+ * Date: 24/11/2024
+ * @version 5.0
+ */
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +21,13 @@ public class ExternalMember extends Member {
 
 	}
 
+	/**
+	 * @param externalId
+	 * @param organization
+	 * @param subscriptionFee
+	 * @param membershipExpiryDate
+	 * @param notificationPreferences
+	 */
 	public ExternalMember(String externalId, String organization, double subscriptionFee,
 			LocalDate membershipExpiryDate, List<String> notificationPreferences) {
 		setExternalId(externalId);
@@ -25,6 +37,21 @@ public class ExternalMember extends Member {
 		setNotificationPreferences(notificationPreferences);
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowTransactions
+	 * @param borrowLimit
+	 * @param externalId
+	 * @param organization
+	 * @param subscriptionFee
+	 * @param membershipExpiryDate
+	 * @param notificationPreferences
+	 */
 	public ExternalMember(int memberId, String name, Address address, String phoneNumber, String email,
 			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit,
 			String externalId, String organization, double subscriptionFee, LocalDate membershipExpiryDate,
@@ -37,6 +64,19 @@ public class ExternalMember extends Member {
 		setNotificationPreferences(notificationPreferences);
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowLimit
+	 * @param externalId
+	 * @param organization
+	 * @param subscriptionFee
+	 * @param membershipExpiryDate
+	 */
 	public ExternalMember(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, String externalId, String organization, double subscriptionFee, LocalDate membershipExpiryDate) {
 		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowLimit);
 		setExternalId(externalId);
@@ -86,6 +126,10 @@ public class ExternalMember extends Member {
 		this.notificationPreferences = notificationPreferences;
 	}
 
+	/**
+	 * this method renews the membership expiry date of the external member
+	 * @param newDate
+	 */
 	public void renewMembershipDate(LocalDate newDate) {
 		if (newDate.isAfter(membershipExpiryDate)) {
 			membershipExpiryDate = newDate;
@@ -95,6 +139,10 @@ public class ExternalMember extends Member {
 		}
 	}
 
+	/**
+	 * this method updates the notification preferences of the external member
+	 * @param preferences
+	 */
 	public void updateNotificationPreferences(List<String> preferences) {
 		if (preferences == null) {
 			System.out.println("Notification preferences cannot be empty.");
@@ -105,6 +153,10 @@ public class ExternalMember extends Member {
 
 	}
 
+	/**
+	 * this method pays the subscription fee of the external member
+	 * @param amount
+	 */
 	public void paySubscriptionFee(double amount) {
 		if (amount <= 0) {
 			System.out.println("Payment amount must be greater than zero.");
@@ -123,12 +175,18 @@ public class ExternalMember extends Member {
 		}
 	}
 
+	/**
+	 * this method displays the details of the external member
+	 */
 	@Override
 	public void displayMemberDetails() {
 		System.out.println("Member ID: " + getMemberId() + ", Name: " + getName() + ", Type: "
 				+ this.getClass().getSimpleName());
 	}
 
+	/**
+	 * this method generates the membership report of the external member
+	 */
 	@Override
 	public void generateMembershipReport() {
 		System.out

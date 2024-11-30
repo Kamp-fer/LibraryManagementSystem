@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/** @author Vael Fazelrahman
+ * Date: 24/11/2024
+ * @version 4.0
+ */
+
 public class Student extends Member {
 	private int studentId;
 	private String specialization;
@@ -15,6 +20,13 @@ public class Student extends Member {
 
 	}
 
+	/**
+	 * @param studentId
+	 * @param specialization
+	 * @param reservedBooks
+	 * @param enrollmentDate
+	 * @param academicStanding
+	 */
 	public Student(int studentId, String specialization, ArrayList<Book> reservedBooks,LocalDate enrollmentDate, String academicStanding) {
 		setStudentId(studentId);
 		setSpecialization(specialization);
@@ -23,6 +35,21 @@ public class Student extends Member {
 		setAcademicStanding(academicStanding);
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowTransactions
+	 * @param borrowLimit
+	 * @param studentId
+	 * @param specialization
+	 * @param reservedBooks
+	 * @param enrollmentDate
+	 * @param academicStanding
+	 */
 	public Student(int memberId, String name, Address address, String phoneNumber, String email,
 			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit,
 			int studentId, String specialization, ArrayList<Book> reservedBooks, LocalDate enrollmentDate, String academicStanding) {
@@ -34,6 +61,19 @@ public class Student extends Member {
 		setAcademicStanding(academicStanding);
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowLimit
+	 * @param studentId
+	 * @param specialization
+	 * @param enrollmentDate
+	 * @param academicStanding
+	 */
 	public Student(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, int studentId, String specialization, LocalDate enrollmentDate, String academicStanding) {
 		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowLimit);
 		setStudentId(studentId);
@@ -83,6 +123,10 @@ public class Student extends Member {
 		this.academicStanding = academicStanding;
 	}
 
+	/**
+	 * this method allows a student to reserve a book
+	 * @param book
+	 */
 	public void reserveBook(Book book) {
 		if (book.getItemAvailability()) {
 			reservedBooks.add(book);
@@ -92,6 +136,10 @@ public class Student extends Member {
 		}
 	}
 
+	/**
+	 * this method allows a student to cancel a book reservation
+	 * @param book
+	 */
 	public void cancelBookReservation(Book book) {
 		if (reservedBooks.contains(book)) {
 			reservedBooks.remove(book);
@@ -102,6 +150,10 @@ public class Student extends Member {
 
 	}
 
+	/**
+	 * this method allows a student to view reserved books
+	 * @return List<Book>
+	 */
 	public List<Book> viewReservedBooks() {
 		if (reservedBooks.isEmpty()) {
 			System.out.println("You have no reserved books. ");

@@ -1,11 +1,23 @@
 package model;
 
+/**@author Adem Stiti
+ * Date: 21/11/2024
+ * @version 1.0
+ */
+
 public class Address {
 	private String street;
 	private String city;
 	private String state;
 	private String zipCode;
 
+	/**
+	 * This constructor initializes the address with the street, city, state and zipCode
+	 * @param street
+	 * @param city
+	 * @param state
+	 * @param zipCode
+	 */
 	public Address(String street, String city, String state, String zipCode) {
 		super();
 		setStreet(street);
@@ -46,6 +58,10 @@ public class Address {
 		this.zipCode = zipCode;
 	}
 
+	/**
+	 * This method returns the address in a string format
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return "street=" + getStreet() + ", city=" + getCity() + ", state=" + getState() + ", zipCode=" + getZipCode() ;

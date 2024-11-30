@@ -6,6 +6,13 @@ import java.io.*;
 import java.time.*;
 import java.util.Scanner;
 
+/**
+ * Library Management System Application
+ * @author Team Falcons
+ * @version 1.0
+ * @Date 2024-11-27
+ */
+
 public class LibrarySystemApp {
 
     static LibrarySystem librarySystem = new LibrarySystem();
@@ -124,7 +131,7 @@ public class LibrarySystemApp {
                 break;
                 case 9:
                     saveAndExit();
-                    System.out.println("--System saved and exited successfully--");
+                    System.out.println("--System saved and exited successfully--\nGood Bye!!");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -134,7 +141,10 @@ public class LibrarySystemApp {
 
     }
 
-
+    /**
+     * Method to manage members
+     * Add, Update, Delete Member
+     */
     public static void manageMembers() {
         System.out.println("1. Add Member");
         System.out.println("2. Update Member");
@@ -184,6 +194,7 @@ public class LibrarySystemApp {
                         String specialization=scanner.next();
                         System.out.println("Enter Enrollment Date(yyyy-MM-dd):");
                         LocalDate enrollmentDate;
+                        scanner.next();
                         try {
                             enrollmentDate= LocalDate.parse(scanner.next());
                         }catch (Exception e){
@@ -326,7 +337,7 @@ public class LibrarySystemApp {
             case 2:{
                 System.out.println("Enter Member ID:");
                 int memberId= scanner.nextInt();
-                for (int i=0;i<librarySystem.getMembers().size();i++){
+                for (int i = 0; i< librarySystem.getMembers().size(); i++){
                     if(librarySystem.getMembers().get(i).getMemberId()==memberId) {
                         if (librarySystem.getMembers().get(i) instanceof Student) {
                             choice = 1;
@@ -344,6 +355,7 @@ public class LibrarySystemApp {
                                 String name = scanner.next();
                                 System.out.println("Enter Address:");
                                 System.out.println("Enter Street:");
+                                scanner.nextLine();
                                 String street = scanner.next();
                                 System.out.println("Enter City:");
                                 String city = scanner.next();
@@ -506,10 +518,6 @@ public class LibrarySystemApp {
                                 break;
                         }
                     }
-                    else{
-                        System.out.println("Member does not exists.");
-                        break;
-                    }
                 }
             };
             break;
@@ -529,6 +537,10 @@ public class LibrarySystemApp {
         }
     }
 
+    /**
+     * Method to manage library items
+     * Add, Update, Delete Library Item
+     */
     public static void manageLibraryItems() {
         System.out.println("1. Add Library Item");
         System.out.println("2. Update Library Item");
@@ -549,6 +561,7 @@ public class LibrarySystemApp {
                         System.out.println("Enter Title:");
                         String title = scanner.next();
                         System.out.println("Enter Author's Name:");
+                        scanner.nextLine();
                         String name = scanner.next();
                         System.out.println("Enter Author's Email:");
                         String email = scanner.next();
@@ -766,6 +779,10 @@ public class LibrarySystemApp {
 
     }
 
+    /**
+     * Method to initialize the system
+     * Read data from csv files
+     */
     public static void startSystem() {
         try{
             FileReader bookReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\book.csv");
@@ -940,7 +957,10 @@ public class LibrarySystemApp {
         }
     }
 
-
+    /**
+     * Method to save data to csv files
+     * Save and Exit
+     */
     public static void saveAndExit() {
         try{
             FileWriter bookWriter = new FileWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\book.csv");

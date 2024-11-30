@@ -1,8 +1,14 @@
 package model;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+/** @author Vael Fazelrahman
+ * Date: 24/11/2024
+ * @version 5.0
+ */
 
 public abstract class Member {
 	private int memberId;
@@ -18,6 +24,16 @@ public abstract class Member {
 
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowTransactions
+	 * @param borrowLimit
+	 */
 	public Member(int memberId, String name, Address address, String phoneNumber, String email,
 			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit) {
 		setMemberId(memberId);
@@ -30,6 +46,15 @@ public abstract class Member {
 		setBorrowLimit(borrowLimit);
 	}
 
+	/**
+	 * @param memberId
+	 * @param name
+	 * @param address
+	 * @param phoneNumber
+	 * @param email
+	 * @param membershipStartDate
+	 * @param borrowLimit
+	 */
 	public Member(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit) {
 		setMemberId(memberId);
 		setName(name);
@@ -105,6 +130,10 @@ public abstract class Member {
 		this.borrowLimit = borrowLimit;
 	}
 
+	/**
+	 * This method checks if the borrowing limit is reached
+	 * @return boolean
+	 */
 	public boolean checkBorrowingLimit() {
 		int validBorrow = 0;
 		for (BorrowTransaction transaction : borrowTransactions) {
@@ -115,6 +144,10 @@ public abstract class Member {
 		return validBorrow < borrowLimit;
 	}
 
+	/**
+	 * This method returns the transaction history of the member
+	 * @return List<Invoice>
+	 */
 	public List<Invoice> viewTransactionHistory(){
 		ArrayList<Invoice> invoices = new ArrayList<>();
 		 for (BorrowTransaction transaction : borrowTransactions) {
@@ -124,6 +157,11 @@ public abstract class Member {
 		 return invoices;
 	}
 
+	/**
+	 * This method adds a borrow transaction to the borrowTransactions list
+	 * @param borrow
+	 * @return void
+	 */
 	public void addBorrowTransaction(BorrowTransaction borrow) {
 		if (borrowTransactions == null) {
 			System.out.println("The borrow transactions list is not yet initialized.");
@@ -133,6 +171,11 @@ public abstract class Member {
 
 	}
 
+	/**
+	 * This method removes a borrow transaction from the borrowTransactions list
+	 * @param item
+	 * @return BorrowTransaction
+	 */
 	public BorrowTransaction removeBorrowItem(LibraryItem item) {
 		if (borrowTransactions == null) {
 			System.out.println("No borrowing transactions was found. ");
@@ -149,6 +192,7 @@ public abstract class Member {
 		}
         return null;
     }
+
 
 	@Override
 	public String toString() {

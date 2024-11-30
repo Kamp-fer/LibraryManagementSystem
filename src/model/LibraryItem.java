@@ -1,5 +1,10 @@
 package model;
 
+/**@author Adem Stiti
+ * Date: 21/11/2024
+ * @version 2.0
+ */
+
 public abstract class LibraryItem implements Borrowable {
 	private int itemId;
 	private String title;
@@ -7,6 +12,14 @@ public abstract class LibraryItem implements Borrowable {
 	private boolean isAvailable;
 	private double latePenalty;
 
+	/**
+	 * This constructor initializes the library item with the item ID, title, author, availability and late penalty
+	 * @param itemId
+	 * @param title
+	 * @param author
+	 * @param isAvailable
+	 * @param latePenalty
+	 */
 	public LibraryItem(int itemId, String title, Author author, boolean isAvailable, double latePenalty) {
 		setItemId(itemId);
 		setTitle(title);
@@ -55,6 +68,10 @@ public abstract class LibraryItem implements Borrowable {
 		return latePenalty;
 	}
 
+	/**
+	 * This method returns the library item in a string format
+	 * @return String
+	 */
 	@Override
 	public String toString() {
 		return "Item ID: " + getItemId() + ", Title: " + getTitle() + ", Author: " + author.getName() + ", Availability: "
@@ -65,5 +82,9 @@ public abstract class LibraryItem implements Borrowable {
 		this.latePenalty = latePenalty;
 	}
 
+	/**
+	 * This method displays the details of the library item
+	 * @return void
+	 */
 	public abstract void displayDetails();
 }
