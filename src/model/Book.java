@@ -31,9 +31,10 @@ public class Book extends LibraryItem {
 	@Override
 	public void displayDetails() {
 		System.out.println(
-				super.toString() + ", " +
-				"isbn: " + getIsbn()+ ", "+
-				"Genre: " + getGenre());
+				"Item ID: "+ getItemId()+ ", " +
+				"Title: " + getTitle()+ ", "+
+				"Author: " + getAuthor().getName()+ ", "+
+				"Available: "+ isAvailable());
 
 	}
 

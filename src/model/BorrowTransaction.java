@@ -131,17 +131,20 @@ public class BorrowTransaction {
 		try{
 			String data;
 			String line;
+			int lastBorrowId = 0;
 			BufferedReader reader = new BufferedReader(new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions. csv"));
 			while ((line=reader.readLine()) != null) {
 				data = line;
-
-				int lastBorrowId = Integer.parseInt(data.split(",")[0]);
-				return lastBorrowId + 1;
+				int borrowId=Integer.parseInt(data.split(",")[0]);
+				if (borrowId > lastBorrowId) {
+					lastBorrowId = borrowId;
+				}
 			}
+			reader.close();
+			return lastBorrowId + 1;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		return 0;
 	}
 
 	public LibraryItem getItem() {

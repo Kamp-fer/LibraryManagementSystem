@@ -7,6 +7,9 @@ import java.util.List;
 public class Faculty extends Member {
 	private String facultyId;
 	private List<Journal> reservedJournals;
+	private String facultyType;
+	private String researchArea;
+	private int publicationCount;
 
 	public Faculty() {
 
@@ -19,16 +22,22 @@ public class Faculty extends Member {
 
 	public Faculty(int memberId, String name, Address address, String phoneNumber, String email,
 			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit,
-			String facultyId, List<Journal> reservedJournals) {
+			String facultyId, List<Journal> reservedJournals,String facultyType, String researchArea, int publicationCount) {
 		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowTransactions, borrowLimit);
 		setFacultyId(facultyId);
 		setReservedJournals(reservedJournals);
+		setFacultyType(facultyType);
+		setResearchArea(researchArea);
+		setPublicationCount(publicationCount);
 	}
 
-	public Faculty(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, String facultyId) {
+	public Faculty(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, String facultyId, String facultyType, String researchArea, int publicationCount) {
 		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowLimit);
 		setFacultyId(facultyId);
 		setReservedJournals(new ArrayList<>());
+		setFacultyType(facultyType);
+		setResearchArea(researchArea);
+		setPublicationCount(publicationCount);
 	}
 
 	public String getFacultyId() {
@@ -45,6 +54,30 @@ public class Faculty extends Member {
 
 	public void setReservedJournals(List<Journal> reservedJournals) {
 		this.reservedJournals = reservedJournals;
+	}
+
+	public String getResearchArea() {
+		return researchArea;
+	}
+
+	public void setResearchArea(String researchArea) {
+		this.researchArea = researchArea;
+	}
+
+	public int getPublicationCount() {
+		return publicationCount;
+	}
+
+	public void setPublicationCount(int publicationCount) {
+		this.publicationCount = publicationCount;
+	}
+
+	public String getFacultyType() {
+		return facultyType;
+	}
+
+	public void setFacultyType(String facultyType) {
+		this.facultyType = facultyType;
 	}
 
 	public void reserveJournal(Journal journal) {
@@ -68,35 +101,8 @@ public class Faculty extends Member {
 
 	@Override
 	public void displayMemberDetails() {
-		System.out.println("Faculty ID: " + getFacultyId());
-		System.out.print(", Faculty Name: " + getName());
+		System.out.println("Member ID: " + getMemberId()+", Name: " + getName()+", Type: "+ this.getClass().getSimpleName());
 
-		if (getAddress() != null) {
-			System.out.println(", Address: ");
-			System.out.println("  Street: " + getAddress().getStreet());
-			System.out.println("  City: " + getAddress().getCity());
-			System.out.println("  State: " + getAddress().getState());
-			System.out.println("  Zip Code: " + getAddress().getZipCode());
-		} else {
-			System.out.println(", Address is not available. ");
-		}
-
-		System.out.println(", Phone Number: " + getPhoneNumber());
-		System.out.println(", Email: " + getEmail());
-		System.out.println(", Membership Start Date: " + getMembershipStartDate());
-		System.out.println(", Borrow Limit: " + getBorrowLimit());
-
-		if (getBorrowTransactions() != null) {
-			System.out.println(", Borrowed Items: ");
-			for (BorrowTransaction transaction : getBorrowTransactions()) {
-				System.out.println("  Borrow ID: " + transaction.getBorrowId());
-				System.out.println("  Item ID: " + transaction.getItemId());
-				System.out.println("  Borrow Date: " + transaction.getBorrowDate());
-				System.out.println("  Due Date: " + transaction.getDueDate());
-			}
-		} else {
-			System.out.println(", No borrowed items. ");
-		}
 	}
 
 	@Override

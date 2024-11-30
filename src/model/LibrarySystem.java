@@ -123,6 +123,7 @@ public class LibrarySystem {
                                 }
                                 LocalDate dueDate = borrowDate.plusDays(21);
                                 BorrowTransaction borrowTransaction = new BorrowTransaction(BorrowTransaction.generateBorrowId(), memberId, itemId, borrowDate, dueDate);
+                                borrowTransaction.recordBorrow();
                                 member.addBorrowTransaction(borrowTransaction);
                                 libraryItem.borrowItem();
                                 System.out.println("Item borrowed successfully");
@@ -149,6 +150,7 @@ public class LibrarySystem {
                     for (LibraryItem libraryItem : libraryItems) {
                         if (libraryItem.getItemId() == borrowTransaction.getItemId()) {
                             libraryItem.returnItem();
+                            borrowTransaction.recordReturn();
                             member.removeBorrowItem(libraryItem);
                             Invoice invoice = new Invoice(Integer.toString(borrowTransaction.getBorrowId()), member, List.of(libraryItem), borrowTransaction.getDueDate());
                             return invoice;

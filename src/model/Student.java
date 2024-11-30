@@ -8,31 +8,39 @@ public class Student extends Member {
 	private int studentId;
 	private String specialization;
 	private ArrayList<Book> reservedBooks;
+	private LocalDate enrollmentDate;
+	private String academicStanding;
 
 	public Student() {
 
 	}
 
-	public Student(int studentId, String specialization, ArrayList<Book> reservedBooks) {
+	public Student(int studentId, String specialization, ArrayList<Book> reservedBooks,LocalDate enrollmentDate, String academicStanding) {
 		setStudentId(studentId);
 		setSpecialization(specialization);
 		setReservedBooks(reservedBooks);
+		setEnrollmentDate(enrollmentDate);
+		setAcademicStanding(academicStanding);
 	}
 
 	public Student(int memberId, String name, Address address, String phoneNumber, String email,
 			LocalDate membershipStartDate, ArrayList<BorrowTransaction> borrowTransactions, int borrowLimit,
-			int studentId, String specialization, ArrayList<Book> reservedBooks) {
+			int studentId, String specialization, ArrayList<Book> reservedBooks, LocalDate enrollmentDate, String academicStanding) {
 		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowTransactions, borrowLimit);
 		setStudentId(studentId);
 		setSpecialization(specialization);
 		setReservedBooks(reservedBooks);
+		setEnrollmentDate(enrollmentDate);
+		setAcademicStanding(academicStanding);
 	}
 
-	public Student(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, int studentId, String specialization) {
+	public Student(int memberId, String name, Address address, String phoneNumber, String email, LocalDate membershipStartDate, int borrowLimit, int studentId, String specialization, LocalDate enrollmentDate, String academicStanding) {
 		super(memberId, name, address, phoneNumber, email, membershipStartDate, borrowLimit);
 		setStudentId(studentId);
 		setSpecialization(specialization);
 		setReservedBooks(new ArrayList<>());
+		setEnrollmentDate(enrollmentDate);
+		setAcademicStanding(academicStanding);
 	}
 
 	public int getStudentId() {
@@ -57,6 +65,22 @@ public class Student extends Member {
 
 	public void setReservedBooks(List<Book> reservedBooks) {
 		this.reservedBooks = new ArrayList<>(reservedBooks);
+	}
+
+	public LocalDate getEnrollmentDate() {
+		return enrollmentDate;
+	}
+
+	public void setEnrollmentDate(LocalDate enrollmentDate) {
+		this.enrollmentDate = enrollmentDate;
+	}
+
+	public String getAcademicStanding() {
+		return academicStanding;
+	}
+
+	public void setAcademicStanding(String academicStanding) {
+		this.academicStanding = academicStanding;
 	}
 
 	public void reserveBook(Book book) {
@@ -93,36 +117,7 @@ public class Student extends Member {
 
 	@Override
 	public void displayMemberDetails() {
-		System.out.println("Student ID: " + getStudentId());
-		System.out.println(", Student Name: " + getName());
-		System.out.println(", Specialization: " + getSpecialization());
-
-		if (getAddress() != null) {
-			System.out.println(", Address: ");
-			System.out.println("  Street: " + getAddress().getStreet());
-			System.out.println("  City: " + getAddress().getCity());
-			System.out.println("  State: " + getAddress().getState());
-			System.out.println("  Zip Code: " + getAddress().getZipCode());
-		} else {
-			System.out.println("Address is not available. ");
-		}
-
-		System.out.println(", Phone Number: " + getPhoneNumber());
-		System.out.println(", Email: " + getEmail());
-		System.out.println(", Membership Start Date: " + getMembershipStartDate());
-		System.out.println(", Borrow Limit: " + getBorrowLimit());
-
-		if (getBorrowTransactions() != null) {
-			System.out.println(", Borrowed Items: ");
-			for (BorrowTransaction transaction : getBorrowTransactions()) {
-				System.out.println("  Borrow ID: " + transaction.getBorrowId());
-				System.out.println("  Item ID: " + transaction.getItemId());
-				System.out.println("  Borrow Date: " + transaction.getBorrowDate());
-				System.out.println("  Due Date: " + transaction.getDueDate());
-			}
-		} else {
-			System.out.println("No borrowed items. ");
-		}
+		System.out.println("Member ID: " + getMemberId() + ", Name: " + getName() + ", Type: " + this.getClass().getSimpleName());
 	}
 
 	@Override

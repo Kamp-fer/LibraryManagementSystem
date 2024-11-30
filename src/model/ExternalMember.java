@@ -125,48 +125,8 @@ public class ExternalMember extends Member {
 
 	@Override
 	public void displayMemberDetails() {
-		System.out.println("Member ID: " + getExternalId());
-		System.out.print(", Member Name: " + getName());
-		System.out.print(", Organization: " + getOrganization());
-
-		if (getAddress() != null) {
-			System.out.print(", Address: ");
-			System.out.print("  Street: " + getAddress().getStreet());
-			System.out.print("  City: " + getAddress().getCity());
-			System.out.print("  State: " + getAddress().getState());
-			System.out.print("  Zip Code: " + getAddress().getZipCode());
-		} else {
-			System.out.print("Address is not available. ");
-		}
-
-		System.out.print(", Phone Number: " + getPhoneNumber());
-		System.out.print(", Email: " + getEmail());
-		System.out.print(", Subscription Fee: " + getSubscriptionFee());
-		System.out.print(", Membership Start Date: " + getMembershipStartDate());
-		System.out.print(", Membership Expiry Date: " + getMembershipExpiryDate());
-		System.out.print(", Borrow Limit: " + getBorrowLimit());
-
-		if (getNotificationPreferences() != null) {
-			System.out.print(", Notification Preferences: ");
-			for (String preference : getNotificationPreferences()) {
-				System.out.print(preference);
-			}
-		} else {
-			System.out.print(", No notification preference. ");
-		}
-
-		if (getBorrowTransactions() != null) {
-			System.out.print(", Borrowed Items: ");
-			for (BorrowTransaction transaction : getBorrowTransactions()) {
-				System.out.print("  Borrow ID: " + transaction.getBorrowId());
-				System.out.print("  Item ID: " + transaction.getItemId());
-				System.out.print("  Borrow Date: " + transaction.getBorrowDate());
-				System.out.print("  Due Date: " + transaction.getDueDate());
-			}
-		} else {
-			System.out.print(", No borrowed items. ");
-		}
-
+		System.out.println("Member ID: " + getMemberId() + ", Name: " + getName() + ", Type: "
+				+ this.getClass().getSimpleName());
 	}
 
 	@Override

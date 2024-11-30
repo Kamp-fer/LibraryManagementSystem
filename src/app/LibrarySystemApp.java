@@ -4,6 +4,7 @@ import model.*;
 
 import java.io.*;
 import java.time.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LibrarySystemApp {
@@ -120,7 +121,8 @@ public class LibrarySystemApp {
                             System.out.println("Invalid choice. Please try again.");
                             break;
                     }
-                }
+                };
+                break;
                 case 9:
                     saveAndExit();
                     System.out.println("--System saved and exited successfully--");
@@ -181,6 +183,16 @@ public class LibrarySystemApp {
                         int studentId=scanner.nextInt();
                         System.out.println("Enter Specialization:");
                         String specialization=scanner.next();
+                        System.out.println("Enter Enrollment Date(yyyy-MM-dd):");
+                        LocalDate enrollmentDate;
+                        try {
+                            enrollmentDate= LocalDate.parse(scanner.next());
+                        }catch (Exception e){
+                            System.err.println("Invalid date format.");
+                            break;
+                        }
+                        System.out.println("Enter Academic Standing");
+                        String academicStanding=scanner.next();
                         Student member=new Student(memberId,
                                 name,
                                 address,
@@ -189,8 +201,11 @@ public class LibrarySystemApp {
                                 membershipStartDate,
                                 borrowLimit,
                                 studentId,
-                                specialization);
+                                specialization,
+                                enrollmentDate,
+                                academicStanding);
                         librarySystem.addMember(member);
+                        System.out.println("Member added successfully."+member.getName());
                     };
                     break;
                     case 2:{
@@ -224,6 +239,12 @@ public class LibrarySystemApp {
                         int borrowLimit=scanner.nextInt();
                         System.out.println("Enter Faculty ID:");
                         String facultyId=scanner.next();
+                        System.out.println("Enter Faculty Type:");
+                        String facultyType=scanner.next();
+                        System.out.println("Enter Research Area");
+                        String researchArea=scanner.next();
+                        System.out.println("Enter Publication Count:");
+                        int publicationCount=scanner.nextInt();
                         Faculty member=new Faculty(memberId,
                                 name,
                                 address,
@@ -231,8 +252,12 @@ public class LibrarySystemApp {
                                 email,
                                 membershipStartDate,
                                 borrowLimit,
-                                facultyId);
+                                facultyId,
+                                facultyType,
+                                researchArea,
+                                publicationCount);
                         librarySystem.addMember(member);
+                        System.out.println("Member added successfully."+member.getName());
                     };
                     break;
                     case 3:{
@@ -290,6 +315,7 @@ public class LibrarySystemApp {
                                 subscriptionFee,
                                 membershipExpiryDate);
                         librarySystem.addMember(member);
+                        System.out.println("Member added successfully."+member.getName());
                     };
                     break;
                     default:
@@ -301,21 +327,20 @@ public class LibrarySystemApp {
             case 2:{
                 System.out.println("Enter Member ID:");
                 int memberId= scanner.nextInt();
-                for (int i=0;i<LibrarySystem.getMembers().size();i++){
-                    if(LibrarySystem.getMembers().get(i).getMemberId()==memberId) {
-                        if (LibrarySystem.getMembers().get(i) instanceof Student) {
+                for (int i=0;i<librarySystem.getMembers().size();i++){
+                    if(librarySystem.getMembers().get(i).getMemberId()==memberId) {
+                        if (librarySystem.getMembers().get(i) instanceof Student) {
                             choice = 1;
                         }
-                        if (LibrarySystem.getMembers().get(i) instanceof Faculty) {
+                        if (librarySystem.getMembers().get(i) instanceof Faculty) {
                             choice = 2;
                         }
-                        if (LibrarySystem.getMembers().get(i) instanceof ExternalMember) {
+                        if (librarySystem.getMembers().get(i) instanceof ExternalMember) {
                             choice = 3;
                         }
+
                         switch (choice) {
                             case 1: {
-                                System.out.println("Enter Member ID:");
-                                int memberId1 = scanner.nextInt();
                                 System.out.println("Enter Name:");
                                 String name = scanner.next();
                                 System.out.println("Enter Address:");
@@ -346,6 +371,16 @@ public class LibrarySystemApp {
                                 int studentId = scanner.nextInt();
                                 System.out.println("Enter Specialization:");
                                 String specialization = scanner.next();
+                                System.out.println("Enter Enrollment Date(yyyy-MM-dd):");
+                                LocalDate enrollmentDate;
+                                try {
+                                    enrollmentDate= LocalDate.parse(scanner.next());
+                                }catch (Exception e){
+                                    System.err.println("Invalid date format.");
+                                    break;
+                                }
+                                System.out.println("Enter Academic Standing");
+                                String academicStanding=scanner.next();
                                 Student member = new Student(memberId,
                                         name,
                                         address,
@@ -354,13 +389,14 @@ public class LibrarySystemApp {
                                         membershipStartDate,
                                         borrowLimit,
                                         studentId,
-                                        specialization);
+                                        specialization,
+                                        enrollmentDate,
+                                        academicStanding);
                                 librarySystem.updateMember(member);
+                                System.out.println("Member updated successfully."+member.getName());
                             };
                             break;
                             case 2: {
-                                System.out.println("Enter Member ID:");
-                                int memberId1 = scanner.nextInt();
                                 System.out.println("Enter Name:");
                                 String name = scanner.next();
                                 System.out.println("Enter Address:");
@@ -389,6 +425,12 @@ public class LibrarySystemApp {
                                 int borrowLimit = scanner.nextInt();
                                 System.out.println("Enter Faculty ID:");
                                 String facultyId = scanner.next();
+                                System.out.println("Enter Faculty Type:");
+                                String facultyType=scanner.next();
+                                System.out.println("Enter Research Area");
+                                String researchArea=scanner.next();
+                                System.out.println("Enter Publication Count:");
+                                int publicationCount=scanner.nextInt();
                                 Faculty member = new Faculty(memberId,
                                         name,
                                         address,
@@ -396,13 +438,15 @@ public class LibrarySystemApp {
                                         email,
                                         membershipStartDate,
                                         borrowLimit,
-                                        facultyId);
+                                        facultyId,
+                                        facultyType,
+                                        researchArea,
+                                        publicationCount);
                                 librarySystem.updateMember(member);
+                                System.out.println("Member updated successfully."+member.getName());
                             };
                             break;
                             case 3: {
-                                System.out.println("Enter Member ID:");
-                                int memberId1 = scanner.nextInt();
                                 System.out.println("Enter Name:");
                                 String name = scanner.next();
                                 System.out.println("Enter Address:");
@@ -455,12 +499,17 @@ public class LibrarySystemApp {
                                         subscriptionFee,
                                         membershipExpiryDate);
                                 librarySystem.updateMember(member);
+                                System.out.println("Member updated successfully."+member.getName());
                             };
                             break;
                             default:
                                 System.out.println("Invalid choice. Please try again.");
                                 break;
                         }
+                    }
+                    else{
+                        System.out.println("Member does not exists.");
+                        break;
                     }
                 }
             };
@@ -546,6 +595,7 @@ public class LibrarySystemApp {
                                 isbn,
                                 genre);
                         librarySystem.addLibraryItem(libraryItem);
+                        System.out.println("Library Item added successfully." + libraryItem.getTitle());
                     }
                     ;
                     break;
@@ -581,8 +631,13 @@ public class LibrarySystemApp {
                                 0.0,
                                 issueNumber,
                                 publisher);
+                        librarySystem.addLibraryItem(libraryItem);
+                        System.out.println("Library Item added successfully." + libraryItem.getTitle());
                     };
                     break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
                 }
             };
             break;
@@ -599,8 +654,6 @@ public class LibrarySystemApp {
                         }
                         switch (choice) {
                             case 1: {
-                                System.out.println("Enter Library Item ID:");
-                                int libraryItemId = scanner.nextInt();
                                 System.out.println("Enter Title:");
                                 String title = scanner.next();
                                 System.out.println("Enter Author's Name:");
@@ -641,7 +694,7 @@ public class LibrarySystemApp {
                                         break;
                                 }
                                 Book libraryItem = new Book(
-                                        libraryItemId,
+                                        itemId,
                                         title,
                                         author,
                                         Boolean.TRUE,
@@ -649,6 +702,7 @@ public class LibrarySystemApp {
                                         isbn,
                                         genre);
                                 librarySystem.updateLibraryItem(libraryItem);
+                                System.out.println("Library Item updated successfully." + libraryItem.getTitle());
                             }
                             ;
                             break;
@@ -684,8 +738,13 @@ public class LibrarySystemApp {
                                         0.0,
                                         issueNumber,
                                         publisher);
+                                librarySystem.updateLibraryItem(libraryItem);
+                                System.out.println("Library Item updated successfully." + libraryItem.getTitle());
                             };
                             break;
+                            default:
+                                System.out.println("Invalid choice. Please try again.");
+                                break;
                         }
                     }
                 }
@@ -712,7 +771,7 @@ public class LibrarySystemApp {
         try{
             FileReader bookReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\book.csv");
             Scanner scanner = new Scanner(bookReader);
-            String data=scanner.nextLine();
+            String data;
             while (scanner.hasNextLine()){
                 data = scanner.nextLine();
                 String[] values = data.split(",");
@@ -736,7 +795,6 @@ public class LibrarySystemApp {
             }
             FileReader journalReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\journal.csv");
             scanner = new Scanner(journalReader);
-            data=scanner.nextLine();
             while (scanner.hasNextLine()){
                 data = scanner.nextLine();
                 String[] values = data.split(",");
@@ -760,7 +818,6 @@ public class LibrarySystemApp {
             }
             FileReader memberReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\external.csv");
             scanner = new Scanner(memberReader);
-            data=scanner.nextLine();
             while (scanner.hasNextLine()){
                 data = scanner.nextLine();
                 String[] values = data.split(",");
@@ -793,7 +850,6 @@ public class LibrarySystemApp {
             }
             FileReader studentReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\student.csv");
             scanner = new Scanner(studentReader);
-            data=scanner.nextLine();
             while (scanner.hasNextLine()){
                 data = scanner.nextLine();
                 String[] values = data.split(",");
@@ -819,12 +875,13 @@ public class LibrarySystemApp {
                         membershipStartDate,
                         borrowLimit,
                         studentId,
-                        specialization);
+                        specialization,
+                        enrollmentDate,
+                        academicStanding);
                 librarySystem.addMember(student);
             }
             FileReader facultyReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\faculty.csv");
             scanner = new Scanner(facultyReader);
-            data=scanner.nextLine();
             while (scanner.hasNextLine()){
                 data = scanner.nextLine();
                 String[] values = data.split(",");
@@ -848,12 +905,14 @@ public class LibrarySystemApp {
                         email,
                         membershipStartDate,
                         borrowLimit,
-                        null);
+                        null,
+                        facultyType,
+                        researchArea,
+                        publicationCount);
                 librarySystem.addMember(faculty);
             }
             FileReader borrowReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv");
             scanner = new Scanner(borrowReader);
-            data=scanner.nextLine();
             while (scanner.hasNextLine()){
                 data = scanner.nextLine();
                 String[] values = data.split(",");
@@ -871,6 +930,7 @@ public class LibrarySystemApp {
                 for (Member member:LibrarySystem.getMembers()){
                     if(member.getMemberId()==memberId){
                         member.addBorrowTransaction(borrowTransaction);
+                        break;
                     }
                 }
             }
@@ -888,7 +948,13 @@ public class LibrarySystemApp {
             for (LibraryItem libraryItem:LibrarySystem.getLibraryItems()){
                 if(libraryItem instanceof Book){
                     Book book = (Book) libraryItem;
-                    bookWriter.write(book.getItemId()+","+book.getTitle()+","+book.getAuthor().getName()+","+book.isAvailable()+","+book.getLatePenalty()+","+book.getIsbn()+","+book.getGenre()+"\n");
+                    bookWriter.write(book.getItemId()+","+
+                            book.getTitle()+","+
+                            book.getAuthor().getName()+","+
+                            book.isAvailable()+","+
+                            book.getLatePenalty()+","+
+                            book.getIsbn()+","+
+                            book.getGenre()+"\n");
                 }
             }
             bookWriter.close();
@@ -896,7 +962,13 @@ public class LibrarySystemApp {
             for (LibraryItem libraryItem:LibrarySystem.getLibraryItems()){
                 if(libraryItem instanceof Journal){
                     Journal journal = (Journal) libraryItem;
-                    journalWriter.write(journal.getItemId() +","+journal.getTitle()+","+journal.getAuthor().getName()+","+ journal.isAvailable() +","+journal.getLatePenalty()+","+journal.getIssueNumber()+","+journal.getPublisher()+"\n");
+                    journalWriter.write(journal.getItemId() +","+
+                            journal.getTitle()+","+
+                            journal.getAuthor().getName()+","+
+                            journal.isAvailable() +","+
+                            journal.getLatePenalty()+","+
+                            journal.getIssueNumber()+","+
+                            journal.getPublisher()+"\n");
                 }
             }
             journalWriter.close();
@@ -904,7 +976,18 @@ public class LibrarySystemApp {
             for (Member member:LibrarySystem.getMembers()){
                 if(member instanceof Student){
                     Student student = (Student) member;
-                    studentWriter.write(student.getMemberId()+","+student.getName()+","+student.getAddress().getStreet()+","+student.getPhoneNumber()+","+student.getEmail()+","+student.getMembershipStartDate()+","+student.getBorrowLimit()+","+"Student" +student.getStudentId()+","+student.getSpecialization()+ "2022-01-01"+"Unknown"+"\n");
+                    studentWriter.write(student.getMemberId()+","+
+                            student.getName()+","+
+                            student.getAddress().getStreet()+","+
+                            student.getPhoneNumber()+","+
+                            student.getEmail()+","+
+                            student.getMembershipStartDate()+","+
+                            student.getBorrowLimit()+","+
+                            "Student" +","+
+                            student.getStudentId()+","+
+                            student.getSpecialization()+","+
+                            student.getEnrollmentDate()+","+
+                            student.getAcademicStanding()+"\n");
                 }
             }
             studentWriter.close();
@@ -912,7 +995,17 @@ public class LibrarySystemApp {
             for (Member member:LibrarySystem.getMembers()){
                 if(member instanceof Faculty){
                     Faculty faculty = (Faculty) member;
-                    facultyWriter.write(faculty.getMemberId()+","+faculty.getName()+","+faculty.getAddress().getStreet()+","+faculty.getPhoneNumber()+","+faculty.getEmail()+","+faculty.getMembershipStartDate()+","+faculty.getBorrowLimit()+"Faculty"+"Unknown"+","+"Unknown"+0+"\n");
+                    facultyWriter.write(faculty.getMemberId()+","+
+                            faculty.getName()+","+
+                            faculty.getAddress().getStreet()+","+
+                            faculty.getPhoneNumber()+","+
+                            faculty.getEmail()+","+
+                            faculty.getMembershipStartDate()+","+
+                            faculty.getBorrowLimit()+","+
+                            "Faculty"+","+
+                            faculty.getFacultyType()+","+
+                            faculty.getResearchArea()+","+
+                            faculty.getPublicationCount()+"\n");
                 }
             }
             facultyWriter.close();
@@ -920,14 +1013,29 @@ public class LibrarySystemApp {
             for (Member member:LibrarySystem.getMembers()){
                 if(member instanceof ExternalMember){
                     ExternalMember externalMember = (ExternalMember) member;
-                    externalWriter.write(externalMember.getMemberId()+","+externalMember.getName()+","+externalMember.getAddress().getStreet()+","+externalMember.getPhoneNumber()+","+externalMember.getEmail()+","+externalMember.getMembershipStartDate()+","+externalMember.getBorrowLimit()+","+"External"+","+externalMember.getExternalId()+","+externalMember.getOrganization()+","+externalMember.getSubscriptionFee()+","+externalMember.getMembershipExpiryDate()+"\n");
+                    externalWriter.write(externalMember.getMemberId()+","+
+                            externalMember.getName()+","+
+                            externalMember.getAddress().getStreet()+","+
+                            externalMember.getPhoneNumber()+","+
+                            externalMember.getEmail()+","+
+                            externalMember.getMembershipStartDate()+","+
+                            externalMember.getBorrowLimit()+","+
+                            "External"+","+
+                            externalMember.getExternalId()+","+
+                            externalMember.getOrganization()+","+
+                            externalMember.getSubscriptionFee()+","+
+                            externalMember.getMembershipExpiryDate()+"\n");
                 }
             }
             externalWriter.close();
             FileWriter borrowWriter = new FileWriter("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv");
             for (Member member:LibrarySystem.getMembers()){
                 for (BorrowTransaction borrowTransaction:member.getBorrowTransactions()){
-                    borrowWriter.write(borrowTransaction.getBorrowId()+","+borrowTransaction.getMemberId()+","+borrowTransaction.getItemId()+","+borrowTransaction.getBorrowDate()+","+borrowTransaction.getDueDate()+"\n");
+                    borrowWriter.write(borrowTransaction.getBorrowId()+","+
+                            borrowTransaction.getMemberId()+","+
+                            borrowTransaction.getItemId()+","+
+                            borrowTransaction.getBorrowDate()+","+
+                            borrowTransaction.getDueDate()+"\n");
                 }
             }
 
