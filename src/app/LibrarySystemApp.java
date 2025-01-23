@@ -809,6 +809,7 @@ public class LibrarySystemApp {
                         genre);
                 librarySystem.addLibraryItem(book);
             }
+            bookreade.close();
             FileReader journalReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\journal.csv");
             scanner = new Scanner(journalReader);
             while (scanner.hasNextLine()){
@@ -832,6 +833,7 @@ public class LibrarySystemApp {
                         publisher);
                 librarySystem.addLibraryItem(journal);
             }
+            journalReader.close();
             FileReader memberReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\external.csv");
             scanner = new Scanner(memberReader);
             while (scanner.hasNextLine()){
@@ -864,6 +866,7 @@ public class LibrarySystemApp {
                         membershipExpiryDate);
                 librarySystem.addMember(externalMember);
             }
+            memberReader.close();
             FileReader studentReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\student.csv");
             scanner = new Scanner(studentReader);
             while (scanner.hasNextLine()){
@@ -896,6 +899,7 @@ public class LibrarySystemApp {
                         academicStanding);
                 librarySystem.addMember(student);
             }
+            studentReader.close();
             FileReader facultyReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\faculty.csv");
             scanner = new Scanner(facultyReader);
             while (scanner.hasNextLine()){
@@ -927,6 +931,7 @@ public class LibrarySystemApp {
                         publicationCount);
                 librarySystem.addMember(faculty);
             }
+            facultyReader.close();
             FileReader borrowReader = new FileReader("E:\\QU\\Fall-2024\\Cmps-251\\LibraryManagementSystem\\src\\app\\borrowTransactions.csv");
             scanner = new Scanner(borrowReader);
             while (scanner.hasNextLine()){
@@ -950,6 +955,7 @@ public class LibrarySystemApp {
                     }
                 }
             }
+            borrowReader.close();
             System.out.println("System started successfully");
         }
         catch (FileNotFoundException e){
